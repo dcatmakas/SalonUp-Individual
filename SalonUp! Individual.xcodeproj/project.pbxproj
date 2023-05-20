@@ -7,22 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		43838C3F2A19815B00CB6524 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43838C3E2A19815B00CB6524 /* UIColorExtension.swift */; };
+		43838C472A198E6100CB6524 /* FeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43838C462A198E6100CB6524 /* FeedVC.swift */; };
 		439A52542A14258B00CBF46A /* SalonUp__IndividualApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A52532A14258B00CBF46A /* SalonUp__IndividualApp.swift */; };
 		439A52562A14258B00CBF46A /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A52552A14258B00CBF46A /* LoginVC.swift */; };
-		439A52582A14258B00CBF46A /* App.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 439A52572A14258B00CBF46A /* App.xcassets */; };
+		439A52582A14258B00CBF46A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 439A52572A14258B00CBF46A /* Assets.xcassets */; };
 		439A525B2A14258B00CBF46A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 439A525A2A14258B00CBF46A /* Preview Assets.xcassets */; };
-		439A52642A14262700CBF46A /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A52632A14262700CBF46A /* UIColorExtension.swift */; };
-		439A52692A142E2400CBF46A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 439A52682A142E2400CBF46A /* Images.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		43838C3E2A19815B00CB6524 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		43838C462A198E6100CB6524 /* FeedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedVC.swift; sourceTree = "<group>"; };
 		439A52502A14258B00CBF46A /* SalonUp! Individual.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SalonUp! Individual.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		439A52532A14258B00CBF46A /* SalonUp__IndividualApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalonUp__IndividualApp.swift; sourceTree = "<group>"; };
 		439A52552A14258B00CBF46A /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
-		439A52572A14258B00CBF46A /* App.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = App.xcassets; sourceTree = "<group>"; };
+		439A52572A14258B00CBF46A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		439A525A2A14258B00CBF46A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		439A52632A14262700CBF46A /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
-		439A52682A142E2400CBF46A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +36,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		43838C3D2A19814600CB6524 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				43838C3E2A19815B00CB6524 /* UIColorExtension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		43838C442A198DCC00CB6524 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				439A52552A14258B00CBF46A /* LoginVC.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		43838C452A198DDF00CB6524 /* Feed */ = {
+			isa = PBXGroup;
+			children = (
+				43838C462A198E6100CB6524 /* FeedVC.swift */,
+			);
+			path = Feed;
+			sourceTree = "<group>";
+		};
 		439A52472A14258B00CBF46A = {
 			isa = PBXGroup;
 			children = (
@@ -57,7 +81,7 @@
 			children = (
 				439A52532A14258B00CBF46A /* SalonUp__IndividualApp.swift */,
 				439A52612A1425F700CBF46A /* VCs */,
-				439A52622A14260200CBF46A /* Extensions */,
+				43838C3D2A19814600CB6524 /* Extensions */,
 				439A52652A142A9B00CBF46A /* Resources */,
 				439A52592A14258B00CBF46A /* Preview Content */,
 			);
@@ -75,24 +99,16 @@
 		439A52612A1425F700CBF46A /* VCs */ = {
 			isa = PBXGroup;
 			children = (
-				439A52552A14258B00CBF46A /* LoginVC.swift */,
+				43838C442A198DCC00CB6524 /* Login */,
+				43838C452A198DDF00CB6524 /* Feed */,
 			);
 			path = VCs;
-			sourceTree = "<group>";
-		};
-		439A52622A14260200CBF46A /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				439A52632A14262700CBF46A /* UIColorExtension.swift */,
-			);
-			path = Extensions;
 			sourceTree = "<group>";
 		};
 		439A52652A142A9B00CBF46A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				439A52572A14258B00CBF46A /* App.xcassets */,
-				439A52682A142E2400CBF46A /* Images.xcassets */,
+				439A52572A14258B00CBF46A /* Assets.xcassets */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -156,8 +172,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				439A525B2A14258B00CBF46A /* Preview Assets.xcassets in Resources */,
-				439A52582A14258B00CBF46A /* App.xcassets in Resources */,
-				439A52692A142E2400CBF46A /* Images.xcassets in Resources */,
+				439A52582A14258B00CBF46A /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,9 +183,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43838C472A198E6100CB6524 /* FeedVC.swift in Sources */,
 				439A52562A14258B00CBF46A /* LoginVC.swift in Sources */,
-				439A52642A14262700CBF46A /* UIColorExtension.swift in Sources */,
 				439A52542A14258B00CBF46A /* SalonUp__IndividualApp.swift in Sources */,
+				43838C3F2A19815B00CB6524 /* UIColorExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
