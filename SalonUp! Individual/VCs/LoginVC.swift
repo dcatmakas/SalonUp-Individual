@@ -8,14 +8,40 @@
 import SwiftUI
 
 struct LoginVC: View {
+    
+    private let backgroundColor = UIColor(hex: "#7557D6")
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        
+        GeometryReader { geo in
+            
+            Color(backgroundColor).ignoresSafeArea()
+
+            ZStack {
+                
+                Image("SalonUp! Simge")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: geo.size.width, height: geo.size.height)
+                    .opacity(0.11)
+                
+                VStack {
+                    HStack {
+                        Text("SalonUp!")
+                            .foregroundColor(.white)
+                            .fontWeight(.heavy)
+                            .font(Font.system(size: 60))
+                    }
+                    
+                    HStack {
+                        Text("Individual")
+                            .foregroundColor(.white)
+                            .font(Font.system(size: 30))
+                    }
+                }
+                
+            }
         }
-        .padding()
     }
 }
 
