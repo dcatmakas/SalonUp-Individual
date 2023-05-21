@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import Firebase
+import FirebaseAuth
 
 struct LoginVC: View {
     
@@ -13,153 +15,169 @@ struct LoginVC: View {
     
     @State var emailText: String = ""
     @State var passwordText: String = ""
+    @State var goNextPage: Bool = false
     
     var body: some View {
         
-        NavigationView {
-            GeometryReader { geo in
+        GeometryReader { geo in
+            
+            Color(backgroundColor).ignoresSafeArea()
+
+            ZStack {
                 
-                Color(backgroundColor).ignoresSafeArea()
+                Image("SalonUp! Simge")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: geo.size.width, height: geo.size.height)
+                    .clipped()
+                    .opacity(0.11)
                 
-                ZStack {
+                VStack {
+                    HStack {
+                        Text("SalonUp!")
+                            .foregroundColor(.white)
+                            .fontWeight(.heavy)
+                            .font(Font.system(size: 60))
+                            .padding(.top, 40)
+                    }
                     
-                    Image("SalonUp! Simge")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: geo.size.width, height: geo.size.height)
-                        .opacity(0.11)
+                    HStack {
+                        Text("Individual")
+                            .foregroundColor(.white)
+                            .font(Font.system(size: 30))
+                    }
                     
-                    VStack {
-                        HStack {
-                            Text("SalonUp!")
-                                .foregroundColor(.white)
-                                .fontWeight(.heavy)
-                                .font(Font.system(size: 60))
-                                .padding(.top, 40)
-                        }
+                    Spacer()
+                    
+                    ZStack {
+                        Rectangle()
+                            .frame(width: .infinity, height: 50)
+                            .foregroundColor(.white)
+                            .cornerRadius(16)
                         
-                        HStack {
-                            Text("Individual")
-                                .foregroundColor(.white)
-                                .font(Font.system(size: 30))
-                        }
-                        
-                        Spacer()
-                        
-                        ZStack {
-                            Rectangle()
-                                .frame(width: .infinity, height: 50)
-                                .foregroundColor(.white)
-                                .cornerRadius(16)
-                            
-                            TextField("Mail Adresinizi Giriniz", text: $emailText)
-                                .textContentType(.emailAddress)
-                                .padding(.horizontal)
-                            
-                        }
-                        .padding()
-                        
-                        ZStack {
-                            Rectangle()
-                                .frame(width: .infinity, height: 50)
-                                .foregroundColor(.white)
-                                .cornerRadius(16)
-                            
-                            SecureField("Şifrenizi Giriniz", text: $passwordText)
-                                .textContentType(.password)
-                                .padding(.horizontal)
-                            
-                        }
-                        .padding(.horizontal)
-                        
-                        VStack {
-                            Button {
-                                print("Giriş Clicked")
-                            } label: {
-                                Text("Giriş Yap")
-                                    .frame(maxWidth: .infinity)
-                                    .frame(height: 50)
-                                    .background(Color("LoginButtonColor"))
-                                    .foregroundColor(.white)
-                                    .cornerRadius(16)
-                            }
-                        }
-                        .padding(.top, 50)
-                        .padding(.horizontal)
-                        
-                        HStack {
-                            Button {
-                                print("test")
-                            } label: {
-                                ZStack {
-                                    Rectangle()
-                                        .frame(width: .infinity, height: 50)
-                                        .foregroundColor(.black)
-                                        .cornerRadius(16)
-                                    
-                                    HStack {
-                                        Image("AppleLogo")
-                                            .resizable()
-                                            .frame(width: 20, height: 20)
-                                        
-                                        Text("Apple İle Giriş")
-                                            .foregroundColor(.white)
-                                            .fontWeight(.light)
-                                            .font(Font.system(size: 15))
-                                    }
-                                }
-                            }
-                            
-                            Button {
-                                print("test")
-                            } label: {
-                                ZStack {
-                                    Rectangle()
-                                        .frame(width: .infinity, height: 50)
-                                        .foregroundColor(.white)
-                                        .cornerRadius(16)
-                                    
-                                    HStack {
-                                        Image("GoogleLogo")
-                                            .resizable()
-                                            .frame(width: 20, height: 20)
-                                        
-                                        Text("Google İle Giriş")
-                                            .foregroundColor(.black)
-                                            .fontWeight(.light)
-                                            .font(Font.system(size: 15))
-                                    }
-                                }
-                            }
-                        }
-                        .padding(.top, 5)
-                        .padding(.horizontal)
-                        
-                        Spacer()
-                        
-                        VStack {
-                            Text("Hesabın Yok Mu?")
-                                .foregroundColor(.white)
-                                .font(Font.system(size: 18))
-                                .padding(.bottom, 1)
-                            
-                            Button {
-                                print("Sign Up Clicked")
-                            } label: {
-                                Text("Hemen Kaydol")
-                                    .foregroundColor(Color("LightGray"))
-                            }
-                            .padding(.bottom, 25)
-                            
-                            
-                        }
+                        TextField("Mail Adresinizi Giriniz", text: $emailText)
+                            .textContentType(.emailAddress)
+                            .padding(.horizontal)
                         
                     }
+                    .padding()
+                    
+                    ZStack {
+                        Rectangle()
+                            .frame(width: .infinity, height: 50)
+                            .foregroundColor(.white)
+                            .cornerRadius(16)
+                        
+                        SecureField("Şifrenizi Giriniz", text: $passwordText)
+                            .textContentType(.password)
+                            .padding(.horizontal)
+                            
+                    }
+                    .padding(.horizontal)
+                    
+                    VStack {
+                        Button {
+                            if emailText != "" && passwordText != "" {
+//                                Auth.auth().signIn(withEmail: emailText, password: passwordText) { authdata, error in
+//                                    if error != nil {
+//                                        // Giriş yapamadığına dair make alert gelecek
+//
+//                                    } else {
+//                                        goNextPage = true
+//                                    }
+//                                }
+                                
+                            } else {
+                                // email ve şifrenin boş olmamasına dair make alert gelecek
+                            }
+                            
+                        } label: {
+                            Text("Giriş Yap")
+                                .frame(maxWidth: .infinity)
+                                .frame(height: 50)
+                                .background(Color("LoginButtonColor"))
+                                .foregroundColor(.white)
+                                .cornerRadius(16)
+                        }
+                    }
+                    .padding(.top, 50)
+                    .padding(.horizontal)
+                    
+                    HStack {
+                        Button {
+                            // Apple ile giriş
+                        } label: {
+                            ZStack {
+                                Rectangle()
+                                    .frame(width: .infinity, height: 50)
+                                    .foregroundColor(.black)
+                                .cornerRadius(16)
+                                
+                                HStack {
+                                    Image("AppleLogo")
+                                        .resizable()
+                                        .frame(width: 20, height: 20)
+                                    
+                                    Text("Apple İle Giriş")
+                                        .foregroundColor(.white)
+                                        .fontWeight(.light)
+                                        .font(Font.system(size: 15))
+                                }
+                            }
+                        }
+                        
+                        Button {
+                            // Google ile giriş
+                        } label: {
+                            ZStack {
+                                Rectangle()
+                                    .frame(width: .infinity, height: 50)
+                                    .foregroundColor(.white)
+                                .cornerRadius(16)
+                                
+                                HStack {
+                                    Image("GoogleLogo")
+                                        .resizable()
+                                        .frame(width: 20, height: 20)
+                                    
+                                    Text("Google İle Giriş")
+                                        .foregroundColor(.black)
+                                        .fontWeight(.light)
+                                        .font(Font.system(size: 15))
+                                }
+                            }
+                        }
+                    }
+                    .padding(.top, 5)
+                    .padding(.horizontal)
+                    
+                    Spacer()
+                        
+                    VStack {
+                        Text("Hesabın Yok Mu?")
+                            .foregroundColor(.white)
+                            .font(Font.system(size: 18))
+                            .padding(.bottom, 1)
+                            
+                        Button {
+                            print("Sign Up Clicked")
+                        } label: {
+                            Text("Hemen Kaydol")
+                                .foregroundColor(Color("LightGray"))
+                        }
+                        .padding(.bottom, 25)
+
+
+                    }
+                    
                 }
             }
-            .onTapGesture {
-                hideKeyboard()
+            .fullScreenCover(isPresented: $goNextPage) {
+                FeedVC()
             }
+        }
+        .onTapGesture {
+            hideKeyboard()
         }
     }
     private func hideKeyboard() {
