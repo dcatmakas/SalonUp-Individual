@@ -15,7 +15,9 @@ struct LoginVC: View {
     
     @State var emailText: String = ""
     @State var passwordText: String = ""
-    @State var goNextPage: Bool = false
+    @State var goFeedVC: Bool = false
+    @State var goSignUpVC: Bool = false
+    @State var isPasswordVisible: Bool = false
     
     var body: some View {
         
@@ -55,9 +57,15 @@ struct LoginVC: View {
                             .foregroundColor(.white)
                             .cornerRadius(16)
                         
-                        TextField("Mail Adresinizi Giriniz", text: $emailText)
-                            .textContentType(.emailAddress)
-                            .padding(.horizontal)
+                        HStack {
+                            Image(systemName: "envelope.fill")
+                                .foregroundColor(Color("MainColor"))
+                                .padding(.leading)
+                            
+                            TextField("Mail Adresi", text: $emailText)
+                                .textContentType(.emailAddress)
+                                .padding(.trailing)
+                        }
                         
                     }
                     .padding()
@@ -68,9 +76,29 @@ struct LoginVC: View {
                             .foregroundColor(.white)
                             .cornerRadius(16)
                         
-                        SecureField("Şifrenizi Giriniz", text: $passwordText)
-                            .textContentType(.password)
-                            .padding(.horizontal)
+                        HStack {
+                            Image(systemName: "lock.fill")
+                                .foregroundColor(Color("MainColor"))
+                                .padding(.leading, 18)
+                            
+                            if isPasswordVisible {
+                                TextField("Şifre", text: $passwordText)
+                                    .textContentType(.newPassword)
+                                    .padding(.trailing)
+                            } else {
+                                SecureField("Şifre", text: $passwordText)
+                                    .textContentType(.newPassword)
+                                    .padding(.trailing)
+                            }
+                            
+                            Button {
+                                isPasswordVisible.toggle()
+                            } label: {
+                                Image(systemName: isPasswordVisible ? "eye.slash.fill" : "eye.fill")
+                                    .foregroundColor(.gray)
+                            }
+                            .padding(.trailing)
+                        }
                             
                     }
                     .padding(.horizontal)
@@ -78,6 +106,7 @@ struct LoginVC: View {
                     VStack {
                         Button {
                             if emailText != "" && passwordText != "" {
+                                goFeedVC = true
 //                                Auth.auth().signIn(withEmail: emailText, password: passwordText) { authdata, error in
 //                                    if error != nil {
 //                                        // Giriş yapamadığına dair make alert gelecek
@@ -98,6 +127,10 @@ struct LoginVC: View {
                                 .background(Color("LoginButtonColor"))
                                 .foregroundColor(.white)
                                 .cornerRadius(16)
+                        }
+                        
+                        .fullScreenCover(isPresented: $goFeedVC) {
+                            FeedVC()
                         }
                     }
                     .padding(.top, 50)
@@ -160,21 +193,22 @@ struct LoginVC: View {
                             .padding(.bottom, 1)
                             
                         Button {
-                            print("Sign Up Clicked")
+                            goSignUpVC = true
                         } label: {
                             Text("Hemen Kaydol")
                                 .foregroundColor(Color("LightGray"))
                         }
                         .padding(.bottom, 25)
-
+                        
+                        .fullScreenCover(isPresented: $goSignUpVC) {
+                            SignUpVC()
+                        }
 
                     }
                     
                 }
             }
-            .fullScreenCover(isPresented: $goNextPage) {
-                FeedVC()
-            }
+            
         }
         .onTapGesture {
             hideKeyboard()
