@@ -24,7 +24,7 @@ struct SalonUp__IndividualApp: App {
     
     var body: some Scene {
         WindowGroup {
-            LoginVC()
+            MainView()
         }
     }
 }

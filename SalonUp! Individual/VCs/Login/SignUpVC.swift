@@ -6,6 +6,9 @@
 //
 
 import SwiftUI
+import Firebase
+import FirebaseAuth
+import FirebaseFirestore
 
 struct SignUpVC: View {
     
@@ -43,6 +46,7 @@ struct SignUpVC: View {
                     HStack {
                         Text("Individual")
                             .foregroundColor(.white)
+                            .fontWeight(.light)
                             .font(Font.system(size: 30))
                     }
                     
@@ -155,7 +159,8 @@ struct SignUpVC: View {
                     VStack {
                         Button {
                             goFeedVC = true
-                            // Kayıt olma işlemleri gelecek
+//                            SignUp(email: emailText, username: usernameText, password: passwordText)
+                            // Kayıt olma işlemleri
                         } label: {
                             Text("Kayıt Ol")
                                 .frame(maxWidth: .infinity)
@@ -246,9 +251,15 @@ struct SignUpVC: View {
             }
         }
     }
+    
     private func hideKeyboard() {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
+    
+    private func SignUp(email: String, username: String, password: String) {
+        // Kayıt olma işlemleri gerçekleşecek
+    }
+    
 }
 
 struct SignUpVC_Previews: PreviewProvider {

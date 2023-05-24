@@ -10,63 +10,37 @@ import MapKit
 import CoreLocation
 
 
-class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
-    private let locationManager = CLLocationManager()
-
-    @Published var userLocation: CLLocation?
-
-    override init() {
-        super.init()
-
-        locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation()
-    }
-
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.last {
-            DispatchQueue.main.async { [weak self] in
-                self?.userLocation = location
-            }
-        }
-    }
-}
-
-
 struct FeedVC: View {
-    
-    @State var locationManager = LocationManager()
-    @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 40.220365, longitude: 28.907517), span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005))
-    
     var body: some View {
+        
         TabView {
-            
-            VStack {
-                Text("Feed")
+            ScrollView {
+                ForEach(0 ..< 5) { item in
+                    SalonModel()
+                }
             }
-                .tabItem {
-                    Image(systemName: "scissors")
-                }
-                .tag(0)
+            .tabItem {
+                Image(systemName: "scissors")
+            }
+            .tag(0)
             
-            Map(coordinateRegion: $region, showsUserLocation: true, userTrackingMode: .constant(.follow))
-                .onAppear {
-                    if let userLocation = locationManager.userLocation {
-                        region = MKCoordinateRegion(center: userLocation.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005))
-                    }
-                }
+            MapVC()
                 .tabItem {
                     Image(systemName: "map.fill")
                 }
                 .tag(1)
             
-            Text("Messages")
+            ScrollView {
+                ForEach(0 ..< 20) { item in
+                    MessagesVC()
+                }
+            }
                 .tabItem {
                     Image(systemName: "message.fill")
                 }
                 .tag(2)
             
-            Text("Ayarlar")
+            SettingsVC()
                 .tabItem {
                     Image(systemName: "gearshape.fill")
                 }
@@ -79,5 +53,92 @@ struct FeedVC: View {
 struct FeedVC_Previews: PreviewProvider {
     static var previews: some View {
         FeedVC()
+    }
+}
+
+struct SalonModel: View {
+    var body: some View {
+        
+        ZStack {
+            Rectangle()
+                .frame(width: .infinity, height: 350)
+                .foregroundColor(Color("CellColor"))
+            
+            VStack {
+                VStack {
+                    ZStack {
+                        Image("catmakas")
+                            .resizable()
+                            .frame(width: .infinity, height: .infinity)
+                        .scaledToFit()
+                        
+                        VStack {
+                            HStack {
+                                ZStack {
+                                    Rectangle()
+                                        .frame(width: 150, height: 30)
+                                        .foregroundColor(.white)
+                                    .cornerRadius(16)
+                                    
+                                    HStack {
+                                        Image(systemName: "star.circle.fill")
+                                            .foregroundColor(Color("MainColor"))
+                                        
+                                        Text("Premium Salon")
+                                            .foregroundColor(Color("MainColor"))
+                                            .fontWeight(.semibold)
+                                            .font(Font.system(size: 14))
+                                    }
+                                }
+                                Spacer()
+                            }
+                            Spacer()
+                        }
+                        .padding(.vertical)
+                        .padding(.horizontal, 5)
+                    }
+                    
+                    HStack {
+                        Text("Çatmakas Salon")
+                            .fontWeight(.bold)
+                            .font(.title)
+                        
+                        Spacer()
+                        
+                        Image(systemName: "mappin.circle.fill")
+                            .foregroundColor(Color("MainColor"))
+                        
+                        Text("Nilüfer")
+                            .foregroundColor(.gray)
+                        
+                    }
+                    .padding(.bottom, 1)
+                }
+                
+                HStack {
+                    Image(systemName: "arrow.forward.square.fill")
+                        .foregroundColor(.black)
+                    
+                    Text("İstediğin gibi görünmek bir randevu kadar uzak")
+                        .font(Font.system(size: 15))
+                        .fontWeight(.light)
+                    
+                    Spacer()
+                }
+                
+                HStack {
+                    Image(systemName: "scissors.circle.fill")
+                        .foregroundColor(.black)
+                    
+                    Text("Saç Kesimi, Renklendirme, Lazer, Erkek Tıraş")
+                        .font(Font.system(size: 15))
+                        .fontWeight(.light)
+                    
+                    Spacer()
+                }
+                .padding(.top, 1)
+            }
+            .padding()
+        }
     }
 }

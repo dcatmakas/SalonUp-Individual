@@ -46,6 +46,7 @@ struct LoginVC: View {
                     HStack {
                         Text("Individual")
                             .foregroundColor(.white)
+                            .fontWeight(.light)
                             .font(Font.system(size: 30))
                     }
                     
@@ -105,20 +106,8 @@ struct LoginVC: View {
                     
                     VStack {
                         Button {
-                            if emailText != "" && passwordText != "" {
-                                goFeedVC = true
-//                                Auth.auth().signIn(withEmail: emailText, password: passwordText) { authdata, error in
-//                                    if error != nil {
-//                                        // Giriş yapamadığına dair make alert gelecek
-//
-//                                    } else {
-//                                        goNextPage = true
-//                                    }
-//                                }
-                                
-                            } else {
-                                // email ve şifrenin boş olmamasına dair make alert gelecek
-                            }
+                            goFeedVC = true
+//                            SignIn(email: emailText, password: passwordText)
                             
                         } label: {
                             Text("Giriş Yap")
@@ -214,8 +203,19 @@ struct LoginVC: View {
             hideKeyboard()
         }
     }
+    
     private func hideKeyboard() {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+    
+    private func SignIn(email: String, password: String) {
+        Auth.auth().signIn(withEmail: email, password: password) { authdata, error in
+            if error != nil {
+                // Hata Mesajı
+            } else {
+                goFeedVC = true
+            }
+        }
     }
 }
 
