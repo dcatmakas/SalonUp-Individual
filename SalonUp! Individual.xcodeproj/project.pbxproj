@@ -7,10 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		432E01912A1FA44A0014218A /* LoadingView in Frameworks */ = {isa = PBXBuildFile; productRef = 432E01902A1FA44A0014218A /* LoadingView */; };
 		4332C1B62A1A45F9003959E4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4332C1B52A1A45F9003959E4 /* GoogleService-Info.plist */; };
 		4332C1BA2A1A46CF003959E4 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 4332C1B92A1A46CF003959E4 /* FirebaseAuth */; };
 		4332C1BC2A1A46CF003959E4 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 4332C1BB2A1A46CF003959E4 /* FirebaseFirestore */; };
 		4332C1BE2A1A46CF003959E4 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 4332C1BD2A1A46CF003959E4 /* FirebaseStorage */; };
+		435DDBAD2A1F8AB900A0E2EE /* SalonViewHeaderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435DDBAC2A1F8AB900A0E2EE /* SalonViewHeaderModel.swift */; };
 		43700AB32A1DF5E8005CA31E /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43700AB22A1DF5E8005CA31E /* MainView.swift */; };
 		43700AB52A1DF60E005CA31E /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43700AB42A1DF60E005CA31E /* SignUpVC.swift */; };
 		43700AB72A1E0832005CA31E /* LaunchScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43700AB62A1E0832005CA31E /* LaunchScreen.swift */; };
@@ -23,10 +25,14 @@
 		439A52582A14258B00CBF46A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 439A52572A14258B00CBF46A /* Assets.xcassets */; };
 		439A525B2A14258B00CBF46A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 439A525A2A14258B00CBF46A /* Preview Assets.xcassets */; };
 		43BBB7252A1E3912008FA1C6 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BBB7242A1E3912008FA1C6 /* SettingsVC.swift */; };
+		43BF065E2A1F58B500C57C92 /* SalonDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BF065D2A1F58B500C57C92 /* SalonDetailsVC.swift */; };
+		43C671F52A1E500900A7628A /* HeaderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C671F42A1E500900A7628A /* HeaderModel.swift */; };
+		43FA932A2A1F810D00D14143 /* SalonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43FA93292A1F810D00D14143 /* SalonViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		4332C1B52A1A45F9003959E4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		435DDBAC2A1F8AB900A0E2EE /* SalonViewHeaderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalonViewHeaderModel.swift; sourceTree = "<group>"; };
 		43700AB22A1DF5E8005CA31E /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		43700AB42A1DF60E005CA31E /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		43700AB62A1E0832005CA31E /* LaunchScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreen.swift; sourceTree = "<group>"; };
@@ -40,6 +46,9 @@
 		439A52572A14258B00CBF46A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		439A525A2A14258B00CBF46A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		43BBB7242A1E3912008FA1C6 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
+		43BF065D2A1F58B500C57C92 /* SalonDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalonDetailsVC.swift; sourceTree = "<group>"; };
+		43C671F42A1E500900A7628A /* HeaderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderModel.swift; sourceTree = "<group>"; };
+		43FA93292A1F810D00D14143 /* SalonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalonViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				432E01912A1FA44A0014218A /* LoadingView in Frameworks */,
 				4332C1BA2A1A46CF003959E4 /* FirebaseAuth in Frameworks */,
 				4332C1BC2A1A46CF003959E4 /* FirebaseFirestore in Frameworks */,
 				4332C1BE2A1A46CF003959E4 /* FirebaseStorage in Frameworks */,
@@ -113,6 +123,7 @@
 			children = (
 				439A52532A14258B00CBF46A /* SalonUp__IndividualApp.swift */,
 				43700AB22A1DF5E8005CA31E /* MainView.swift */,
+				43C671F12A1E4FB500A7628A /* Models */,
 				439A52612A1425F700CBF46A /* VCs */,
 				43838C3D2A19814600CB6524 /* Extensions */,
 				439A52652A142A9B00CBF46A /* Resources */,
@@ -136,6 +147,7 @@
 			children = (
 				43838C442A198DCC00CB6524 /* Login */,
 				43838C452A198DDF00CB6524 /* Feed */,
+				43BF065C2A1F589A00C57C92 /* SalonDetails */,
 			);
 			path = VCs;
 			sourceTree = "<group>";
@@ -146,6 +158,24 @@
 				439A52572A14258B00CBF46A /* Assets.xcassets */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		43BF065C2A1F589A00C57C92 /* SalonDetails */ = {
+			isa = PBXGroup;
+			children = (
+				43BF065D2A1F58B500C57C92 /* SalonDetailsVC.swift */,
+			);
+			path = SalonDetails;
+			sourceTree = "<group>";
+		};
+		43C671F12A1E4FB500A7628A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				43C671F42A1E500900A7628A /* HeaderModel.swift */,
+				43FA93292A1F810D00D14143 /* SalonViewModel.swift */,
+				435DDBAC2A1F8AB900A0E2EE /* SalonViewHeaderModel.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -168,6 +198,7 @@
 				4332C1B92A1A46CF003959E4 /* FirebaseAuth */,
 				4332C1BB2A1A46CF003959E4 /* FirebaseFirestore */,
 				4332C1BD2A1A46CF003959E4 /* FirebaseStorage */,
+				432E01902A1FA44A0014218A /* LoadingView */,
 			);
 			productName = "SalonUp! Individual";
 			productReference = 439A52502A14258B00CBF46A /* SalonUp! Individual.app */;
@@ -199,6 +230,7 @@
 			mainGroup = 439A52472A14258B00CBF46A;
 			packageReferences = (
 				4332C1B82A1A46CF003959E4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				432E018F2A1FA44A0014218A /* XCRemoteSwiftPackageReference "swiftui-loading-view" */,
 			);
 			productRefGroup = 439A52512A14258B00CBF46A /* Products */;
 			projectDirPath = "";
@@ -228,11 +260,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				43700ABC2A1E2A4F005CA31E /* MessagesVC.swift in Sources */,
+				43C671F52A1E500900A7628A /* HeaderModel.swift in Sources */,
 				43700AB72A1E0832005CA31E /* LaunchScreen.swift in Sources */,
 				43838C472A198E6100CB6524 /* FeedVC.swift in Sources */,
 				439A52562A14258B00CBF46A /* LoginVC.swift in Sources */,
+				43FA932A2A1F810D00D14143 /* SalonViewModel.swift in Sources */,
 				439A52542A14258B00CBF46A /* SalonUp__IndividualApp.swift in Sources */,
+				435DDBAD2A1F8AB900A0E2EE /* SalonViewHeaderModel.swift in Sources */,
 				43700AB32A1DF5E8005CA31E /* MainView.swift in Sources */,
+				43BF065E2A1F58B500C57C92 /* SalonDetailsVC.swift in Sources */,
 				43700ABA2A1E293B005CA31E /* MapVC.swift in Sources */,
 				43700AB52A1DF60E005CA31E /* SignUpVC.swift in Sources */,
 				43838C3F2A19815B00CB6524 /* UIColorExtension.swift in Sources */,
@@ -293,7 +329,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -347,7 +383,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -441,6 +477,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		432E018F2A1FA44A0014218A /* XCRemoteSwiftPackageReference "swiftui-loading-view" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/DanielMandea/swiftui-loading-view";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		4332C1B82A1A46CF003959E4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -452,6 +496,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		432E01902A1FA44A0014218A /* LoadingView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 432E018F2A1FA44A0014218A /* XCRemoteSwiftPackageReference "swiftui-loading-view" */;
+			productName = LoadingView;
+		};
 		4332C1B92A1A46CF003959E4 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 4332C1B82A1A46CF003959E4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

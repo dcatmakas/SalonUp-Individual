@@ -8,10 +8,14 @@
 import SwiftUI
 import Firebase
 import FirebaseAuth
+import LoadingView
 
 struct LoginVC: View {
     
     private let backgroundColor = UIColor(hex: "#7557D6")
+    
+    @State private var signInError: Bool = false
+    @State private var errorMessage: String = ""
     
     @State var emailText: String = ""
     @State var passwordText: String = ""
@@ -106,8 +110,8 @@ struct LoginVC: View {
                     
                     VStack {
                         Button {
-                            goFeedVC = true
-//                            SignIn(email: emailText, password: passwordText)
+//                            goFeedVC = true
+                            SignIn(email: emailText, password: passwordText)
                             
                         } label: {
                             Text("Giriş Yap")
@@ -202,6 +206,10 @@ struct LoginVC: View {
         .onTapGesture {
             hideKeyboard()
         }
+        
+        .alert(isPresented: $signInError) {
+            AlertMessage(title: "Hata!", message: "Bir Hata Oluştu.", dismissButton: "Tamam")
+        }
     }
     
     private func hideKeyboard() {
@@ -211,12 +219,22 @@ struct LoginVC: View {
     private func SignIn(email: String, password: String) {
         Auth.auth().signIn(withEmail: email, password: password) { authdata, error in
             if error != nil {
-                // Hata Mesajı
+                signInError = true
             } else {
                 goFeedVC = true
             }
         }
     }
+    
+    private func AlertMessage(title: String, message: String, dismissButton: String) -> Alert {
+        return Alert(
+        title: Text(title),
+        message: Text(message),
+        dismissButton: .default(Text(dismissButton))
+        )
+        
+    }
+    
 }
 
 struct ContentView_Previews: PreviewProvider {

@@ -14,12 +14,12 @@ struct SettingsVC: View {
     var body: some View {
         
         List {
-            Section(header: Text("Ayarlar")) {
+//            Section(header: Text("Ayarlar")) {
                 ForEach(titles, id: \.self) { title in
                     Text(title)
                     
                 }
-            }
+//            }
         }
     }
 }

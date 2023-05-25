@@ -23,9 +23,11 @@ struct MessagesVC_Previews: PreviewProvider {
 struct MessageModel: View {
     var body: some View {
         ZStack {
-            Rectangle()
-                .frame(width: .infinity, height: 90)
-                .foregroundColor(Color("CellColor"))
+//            Rectangle()
+//                .frame(width: .infinity, height: 90)
+//                .foregroundColor(Color("CellColor"))
+            Color("CellColor")
+
             
             HStack {
                 Image("catmakas.logo")
