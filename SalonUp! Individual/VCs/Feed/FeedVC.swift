@@ -85,7 +85,7 @@ struct SalonModel: View {
     var body: some View {
         
         NavigationLink {
-            // SalonDetailsVC()
+             SalonDetailsVC()
         } label: {
             
             ZStack {
