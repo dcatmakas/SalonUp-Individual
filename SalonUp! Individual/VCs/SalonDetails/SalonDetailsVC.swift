@@ -70,13 +70,18 @@ struct SalonDetailsVC: View {
                         Image("catmakas.logo")
                             .resizable()
                             .scaledToFill()
-                            .frame(width: 100, height: 100)
+                            .frame(width: 95, height: 95)
                             .clipShape(Circle())
                             .padding(8)
                             .background(colorScheme == .dark ? Color.black : Color.white)
                             .clipShape(Circle())
+                            .overlay(
+                                Circle()
+                                    .stroke(Color.gray, lineWidth: 1.5)
+                            )
                             .offset(y: offset < 0 ? getOffset() - 20 : -20)
                             .scaleEffect(getScale())
+
                         
                         Spacer()
                         
@@ -99,7 +104,7 @@ struct SalonDetailsVC: View {
 
                     }
                     .padding(.top, -40)
-                    .padding(.bottom, -20)
+                    .padding(.bottom, -15)
                     
                     // Profile Data
                     VStack(alignment: .leading, spacing: 8, content: {
@@ -155,7 +160,7 @@ struct SalonDetailsVC: View {
                         
                         Divider()
                     }
-                    .padding(.top, 25)
+                    .padding(.top, 15)
                     .background(Color.white)
                     .offset(y: tabBarOffset < 80 ? -tabBarOffset + 80 : 0)
                     .overlay(

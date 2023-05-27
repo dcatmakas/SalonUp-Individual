@@ -86,6 +86,7 @@ struct SalonModel: View {
         
         NavigationLink {
              SalonDetailsVC()
+                .navigationBarHidden(true)
         } label: {
             
             ZStack {
