@@ -13,6 +13,7 @@ struct SalonDetailsVC: View {
     @State var offset: CGFloat = 0
     @State var currentTab = "Ana Sayfa"
     @State var tabBarOffset: CGFloat = 0
+    @State var titleOffset: CGFloat = 0
     
     @Environment(\.presentationMode) var presentationMode
         
@@ -54,10 +55,16 @@ struct SalonDetailsVC: View {
                                 
                                 //Title View
                                 VStack(spacing: 5) {
-                                    
+                                    Text("Çatmakas Salon")
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.white)
                                 }
-                                .offset(y: 60)
+                                // To Slide From Bottom Added Extra 60.
+                                .offset(y: 105)
+                                .offset(y: titleOffset > 100 ? 0 : -getTitleTextOffset())
+                                .opacity(titleOffset < 100 ? 1 : 0)
                             }
+                                .clipped()
                             // Stretchy Header
                                 .frame(height: minY > 0 ? 180 + minY : nil)
                                 .offset(y: minY > 0 ? -minY : -minY < 80 ? 0 : -minY - 80)
@@ -74,14 +81,14 @@ struct SalonDetailsVC: View {
                             Image("catmakas.logo")
                                 .resizable()
                                 .scaledToFill()
-                                .frame(width: 95, height: 95)
+                                .frame(width: 100, height: 100)
                                 .clipShape(Circle())
                                 .padding(8)
                                 .background(colorScheme == .dark ? Color.black : Color.white)
                                 .clipShape(Circle())
                                 .overlay(
                                     Circle()
-                                        .stroke(Color.gray, lineWidth: 1.5)
+                                        .stroke(colorScheme == .dark ? .clear : .gray, lineWidth: 1.5)
                                 )
                                 .offset(y: offset < 0 ? getOffset() - 20 : -20)
                                 .scaleEffect(getScale())
@@ -130,23 +137,37 @@ struct SalonDetailsVC: View {
                             
                             HStack(alignment: .top) {
                                 Image(systemName: "scissors.circle.fill")
-                                    .foregroundColor(.black)
+                                    .foregroundColor(colorScheme == .dark ? .white : .black)
                                 
                                 Text("İyi Görünmek Bir Randevu Kadar Uzak.✨")
-                                    .foregroundColor(.black)
+                                    .foregroundColor(colorScheme == .dark ? .white : .black)
                                     .font(Font.system(size: 15))
                             }
                             
                             HStack(alignment: .top) {
                                 Image(systemName: "arrow.forward.square.fill")
-                                    .foregroundColor(.black)
+                                    .foregroundColor(colorScheme == .dark ? .white : .black)
                                 
                                 Text("Profesyonel Ekibimizle Birlikte 300 Metre Karelik Geniş Salonumuzda Misafirimize En iyi Hizmeti Sunuyoruz.")
-                                    .foregroundColor(.black)
+                                    .foregroundColor(colorScheme == .dark ? .white : .black)
                                     .font(Font.system(size: 15))
                             }
                             
                         })
+                        .overlay(
+                            GeometryReader { proxy -> Color in
+                                
+                                let minY = proxy.frame(in: .global).minY
+                                
+                                DispatchQueue.main.async {
+                                    self.titleOffset = minY
+                                }
+                                return Color.clear
+                            }
+                            .frame(width: 0, height: 0)
+                            ,alignment: .top
+                        )
+                        
                         // Custom Segmented Menu
                         VStack(spacing: 0) {
                             ScrollView(.horizontal, showsIndicators: false) {
@@ -165,7 +186,7 @@ struct SalonDetailsVC: View {
                             Divider()
                         }
                         .padding(.top, 15)
-                        .background(Color.white)
+                        .background(colorScheme == .dark ? Color.black : Color.white)
                         .offset(y: tabBarOffset < 80 ? -tabBarOffset + 80 : 0)
                         .overlay(
                             
@@ -226,7 +247,16 @@ struct SalonDetailsVC: View {
             .padding(.vertical, 40)
         }
         .ignoresSafeArea(.all, edges: .top)
-
+    }
+    
+    func getTitleTextOffset() -> CGFloat {
+        
+        // Some Amount For Progress For Slide Effect.
+        let progress = 20 / titleOffset
+        
+        let offSet = 37 * (progress > 0 && progress <= 1 ? progress : 1)
+        
+        return offSet
     }
     
     // Profile Shrinking Effect
@@ -276,6 +306,7 @@ struct TabButton: View {
     var title : String
     @Binding var currentTab: String
     var animation: Namespace.ID
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         
@@ -287,7 +318,7 @@ struct TabButton: View {
             LazyVStack(spacing: 12) {
                 Text(title)
                     .fontWeight(.semibold)
-                    .foregroundColor(currentTab == title ? .black : .gray)
+                    .foregroundColor(currentTab == title ? (colorScheme == .dark ? .white : .black) : .gray)
                     .padding(.horizontal)
                 
                 if currentTab == title {

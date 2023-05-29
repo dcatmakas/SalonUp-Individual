@@ -21,12 +21,15 @@ struct MessagesVC_Previews: PreviewProvider {
 }
 
 struct MessageModel: View {
+    
+    @Environment(\.colorScheme) var colorScheme
+
     var body: some View {
         ZStack {
 //            Rectangle()
 //                .frame(width: .infinity, height: 90)
 //                .foregroundColor(Color("CellColor"))
-            Color("CellColor")
+            Color(colorScheme == .dark ? .black : UIColor(Color("CellColor")))
 
             
             HStack {
@@ -42,6 +45,7 @@ struct MessageModel: View {
                         Text("Çatmakas Salon")
                             .font(.title3)
                             .fontWeight(.semibold)
+                            .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                             .padding(.bottom, 1)
                         
                         Spacer()
@@ -59,6 +63,7 @@ struct MessageModel: View {
                         
                         Text("Merhaba!")
                             .font(.headline)
+                            .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                             .fontWeight(.regular)
                         
                         Spacer()

@@ -11,6 +11,7 @@ import FirebaseAuth
 
 struct LoginVC: View {
     
+    @Environment(\.colorScheme) var colorScheme
     private let backgroundColor = UIColor(hex: "#7557D6")
     
     @State private var signInError: Bool = false
@@ -58,12 +59,12 @@ struct LoginVC: View {
                     ZStack {
                         Rectangle()
                             .frame(width: .infinity, height: 50)
-                            .foregroundColor(.white)
+                            .foregroundColor(colorScheme == .dark ? Color.black : Color.white)
                             .cornerRadius(16)
                         
                         HStack {
                             Image(systemName: "envelope.fill")
-                                .foregroundColor(Color("MainColor"))
+                                .foregroundColor(colorScheme == .dark ? Color.white : Color("MainColor"))
                                 .padding(.leading)
                             
                             TextField("Mail Adresi", text: $emailText)
@@ -77,12 +78,12 @@ struct LoginVC: View {
                     ZStack {
                         Rectangle()
                             .frame(width: .infinity, height: 50)
-                            .foregroundColor(.white)
+                            .foregroundColor(colorScheme == .dark ? Color.black : Color.white)
                             .cornerRadius(16)
                         
                         HStack {
                             Image(systemName: "lock.fill")
-                                .foregroundColor(Color("MainColor"))
+                                .foregroundColor(colorScheme == .dark ? Color.white : Color("MainColor"))
                                 .padding(.leading, 18)
                             
                             if isPasswordVisible {

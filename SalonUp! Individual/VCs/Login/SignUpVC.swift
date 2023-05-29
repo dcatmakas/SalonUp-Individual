@@ -12,6 +12,8 @@ import FirebaseFirestore
 
 struct SignUpVC: View {
     
+    @Environment(\.colorScheme) var colorScheme
+    
     @State var emailText: String = ""
     @State var usernameText: String = ""
     @State var passwordText: String = ""
@@ -56,12 +58,12 @@ struct SignUpVC: View {
                         ZStack {
                             Rectangle()
                                 .frame(width: .infinity, height: 50)
-                                .foregroundColor(.white)
+                                .foregroundColor(colorScheme == .dark ? .black : .white)
                                 .cornerRadius(16)
                             
                             HStack {
                                 Image(systemName: "envelope.fill")
-                                    .foregroundColor(Color("MainColor"))
+                                    .foregroundColor(colorScheme == .dark ? Color.white : Color("MainColor"))
                                     .padding(.leading)
                                 
                                 TextField("Mail Adresi", text: $emailText)
@@ -76,12 +78,12 @@ struct SignUpVC: View {
                         ZStack {
                             Rectangle()
                                 .frame(width: .infinity, height: 50)
-                                .foregroundColor(.white)
+                                .foregroundColor(colorScheme == .dark ? .black : .white)
                                 .cornerRadius(16)
                             
                             HStack {
                                 Image(systemName: "person.fill")
-                                    .foregroundColor(Color("MainColor"))
+                                    .foregroundColor(colorScheme == .dark ? Color.white : Color("MainColor"))
                                     .padding(.leading)
                                 
                                 TextField("Kullanıcı Adı", text: $usernameText)
@@ -94,12 +96,12 @@ struct SignUpVC: View {
                         ZStack {
                             Rectangle()
                                 .frame(width: .infinity, height: 50)
-                                .foregroundColor(.white)
+                                .foregroundColor(colorScheme == .dark ? .black : .white)
                                 .cornerRadius(16)
                             
                             HStack {
                                 Image(systemName: "lock.fill")
-                                    .foregroundColor(Color("MainColor"))
+                                    .foregroundColor(colorScheme == .dark ? Color.white : Color("MainColor"))
                                     .padding(.leading, 18)
                                 
                                 if isPasswordVisible {
@@ -127,12 +129,12 @@ struct SignUpVC: View {
                         ZStack {
                             Rectangle()
                                 .frame(width: .infinity, height: 50)
-                                .foregroundColor(.white)
+                                .foregroundColor(colorScheme == .dark ? .black : .white)
                                 .cornerRadius(16)
                             
                             HStack {
                                 Image(systemName: "lock.fill")
-                                    .foregroundColor(Color("MainColor"))
+                                    .foregroundColor(colorScheme == .dark ? Color.white : Color("MainColor"))
                                     .padding(.leading, 18)
                                 
                                 if isPasswordVisible {
