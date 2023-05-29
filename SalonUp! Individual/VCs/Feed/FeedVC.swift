@@ -11,6 +11,9 @@ import CoreLocation
 
 
 struct FeedVC: View {
+    
+    @Environment(\.colorScheme) var colorScheme
+
     var body: some View {
         
         TabView {
@@ -71,7 +74,7 @@ struct FeedVC: View {
                 }
                 .tag(3)
         }
-        .accentColor(.black)
+        .accentColor(colorScheme == .dark ? .white : .black)
     }
 }
 
@@ -82,6 +85,9 @@ struct FeedVC_Previews: PreviewProvider {
 }
 
 struct SalonModel: View {
+    
+    @Environment(\.colorScheme) var colorScheme
+    
     var body: some View {
         
         NavigationLink {
@@ -131,6 +137,7 @@ struct SalonModel: View {
                         HStack {
                             Text("Çatmakas Salon")
                                 .fontWeight(.bold)
+                                .foregroundColor(colorScheme == .dark ? .white : .black)
                                 .font(.title)
                             
                             Spacer()
@@ -147,10 +154,11 @@ struct SalonModel: View {
                     
                     HStack {
                         Image(systemName: "arrow.forward.square.fill")
-                            .foregroundColor(.black)
+                            .foregroundColor(colorScheme == .dark ? .white : .black)
                         
                         Text("İstediğin gibi görünmek bir randevu kadar uzak")
                             .font(Font.system(size: 15))
+                            .foregroundColor(colorScheme == .dark ? .white : .black)
                             .fontWeight(.light)
                         
                         Spacer()
@@ -158,10 +166,11 @@ struct SalonModel: View {
                     
                     HStack {
                         Image(systemName: "scissors.circle.fill")
-                            .foregroundColor(.black)
+                            .foregroundColor(colorScheme == .dark ? .white : .black)
                         
                         Text("Saç Kesimi, Renklendirme, Lazer, Erkek Tıraş")
                             .font(Font.system(size: 15))
+                            .foregroundColor(colorScheme == .dark ? .white : .black)
                             .fontWeight(.light)
                         
                         Spacer()

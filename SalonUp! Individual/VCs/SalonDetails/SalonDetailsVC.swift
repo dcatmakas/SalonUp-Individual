@@ -56,6 +56,7 @@ struct SalonDetailsVC: View {
                                 //Title View
                                 VStack(spacing: 5) {
                                     Text("Çatmakas Salon")
+                                        .font(Font.system(size: 18))
                                         .fontWeight(.bold)
                                         .foregroundColor(.white)
                                 }
@@ -112,8 +113,8 @@ struct SalonDetailsVC: View {
                                     .strokeBorder(Color("MainColor"), lineWidth: 1.5)
                             )
                             
-                            
                         }
+                        .padding(.horizontal)
                         .padding(.top, -40)
                         .padding(.bottom, -15)
                         
@@ -154,6 +155,7 @@ struct SalonDetailsVC: View {
                             }
                             
                         })
+                        .padding(.horizontal)
                         .overlay(
                             GeometryReader { proxy -> Color in
                                 
@@ -220,7 +222,7 @@ struct SalonDetailsVC: View {
                         .zIndex(0)
                         
                     }
-                    .padding(.horizontal)
+//                    .padding(.horizontal)
                     
                     // Return The View Back If It Goes > 80
                     .zIndex(-offset > 80 ? 0 : 1)
@@ -234,6 +236,7 @@ struct SalonDetailsVC: View {
                     } label: {
                         Image(systemName: "chevron.backward")
                             .padding(10)
+                            .font(Font.system(size: 23))
                             .foregroundColor(.white)
                             .clipShape(Circle())
                             .opacity(0.9)
@@ -247,6 +250,13 @@ struct SalonDetailsVC: View {
             .padding(.vertical, 40)
         }
         .ignoresSafeArea(.all, edges: .top)
+        
+        .gesture(DragGesture().onChanged { gesture in
+                if gesture.translation.width > 100 { // Minimum kaydırma mesafesi
+                    // Geri dönme işlemi
+                    self.presentationMode.wrappedValue.dismiss()
+                }
+            })
     }
     
     func getTitleTextOffset() -> CGFloat {
@@ -254,7 +264,7 @@ struct SalonDetailsVC: View {
         // Some Amount For Progress For Slide Effect.
         let progress = 20 / titleOffset
         
-        let offSet = 37 * (progress > 0 && progress <= 1 ? progress : 1)
+        let offSet = 33 * (progress > 0 && progress <= 1 ? progress : 1)
         
         return offSet
     }
@@ -323,7 +333,7 @@ struct TabButton: View {
                 
                 if currentTab == title {
                     Capsule()
-                        .fill(Color.black)
+                        .fill(colorScheme == .dark ? Color.white : Color.black)
                         .frame(height: 1.2)
                         .matchedGeometryEffect(id: "TAB", in: animation)
                     
