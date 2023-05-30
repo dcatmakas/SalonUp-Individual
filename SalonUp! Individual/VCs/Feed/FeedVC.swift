@@ -21,12 +21,14 @@ struct FeedVC: View {
                 ScrollView(showsIndicators: false) {
                     ForEach(0 ..< 5) { item in
                         SalonModel()
+                        
+                        Divider()
                     }
                 }
                 .navigationTitle("Salonlar")
                 .navigationBarItems(trailing: HStack {
                     Button {
-                        // sjnd
+                        // Salon Filters
                     } label: {
                         Image(systemName: "slider.vertical.3")
                     }

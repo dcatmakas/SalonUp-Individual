@@ -216,6 +216,8 @@ struct SalonDetailsVC: View {
                             
                             ForEach(0..<10) { _ in
                                 MessagesVC()
+                                
+                                Divider()
                             }
                         }
                         .padding(.top)
