@@ -66,10 +66,9 @@ struct FeedVC: View {
             }
             .tag(2)
             
-            NavigationView {
-                SettingsVC()
-                    .navigationTitle("Ayarlar")
-            }
+            SettingsVC()
+                .navigationTitle("Ayarlar")
+            
             .navigationViewStyle(StackNavigationViewStyle())
                 .tabItem {
                     Image(systemName: "gearshape.fill")
