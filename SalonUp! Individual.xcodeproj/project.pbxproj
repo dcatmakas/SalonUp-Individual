@@ -11,6 +11,7 @@
 		4332C1BA2A1A46CF003959E4 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 4332C1B92A1A46CF003959E4 /* FirebaseAuth */; };
 		4332C1BC2A1A46CF003959E4 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 4332C1BB2A1A46CF003959E4 /* FirebaseFirestore */; };
 		4332C1BE2A1A46CF003959E4 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 4332C1BD2A1A46CF003959E4 /* FirebaseStorage */; };
+		4345228A2A2B36190086800A /* Salon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434522892A2B36190086800A /* Salon.swift */; };
 		43700AB32A1DF5E8005CA31E /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43700AB22A1DF5E8005CA31E /* MainView.swift */; };
 		43700AB52A1DF60E005CA31E /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43700AB42A1DF60E005CA31E /* SignUpVC.swift */; };
 		43700AB72A1E0832005CA31E /* LaunchScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43700AB62A1E0832005CA31E /* LaunchScreen.swift */; };
@@ -35,6 +36,7 @@
 
 /* Begin PBXFileReference section */
 		4332C1B52A1A45F9003959E4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		434522892A2B36190086800A /* Salon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Salon.swift; sourceTree = "<group>"; };
 		43700AB22A1DF5E8005CA31E /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		43700AB42A1DF60E005CA31E /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		43700AB62A1E0832005CA31E /* LaunchScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreen.swift; sourceTree = "<group>"; };
@@ -79,6 +81,14 @@
 				4332C1B52A1A45F9003959E4 /* GoogleService-Info.plist */,
 			);
 			path = Infos;
+			sourceTree = "<group>";
+		};
+		434522882A2B35F70086800A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				434522892A2B36190086800A /* Salon.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		43838C3D2A19814600CB6524 /* Extensions */ = {
@@ -144,8 +154,9 @@
 				43A395652A24CF03003CBA47 /* SalonUp--Individual-Info.plist */,
 				439A52532A14258B00CBF46A /* SalonUp__IndividualApp.swift */,
 				43700AB22A1DF5E8005CA31E /* MainView.swift */,
-				43C671F12A1E4FB500A7628A /* Models */,
-				439A52612A1425F700CBF46A /* VCs */,
+				434522882A2B35F70086800A /* Model */,
+				43C671F12A1E4FB500A7628A /* ViewModel */,
+				439A52612A1425F700CBF46A /* App */,
 				43838C3D2A19814600CB6524 /* Extensions */,
 				439A52652A142A9B00CBF46A /* Resources */,
 				4332C1B72A1A4610003959E4 /* Infos */,
@@ -163,7 +174,7 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		439A52612A1425F700CBF46A /* VCs */ = {
+		439A52612A1425F700CBF46A /* App */ = {
 			isa = PBXGroup;
 			children = (
 				43838C442A198DCC00CB6524 /* Login */,
@@ -171,7 +182,7 @@
 				4391DE112A25E76A000DF9B3 /* SettingsParameters */,
 				43BF065C2A1F589A00C57C92 /* SalonDetails */,
 			);
-			path = VCs;
+			path = App;
 			sourceTree = "<group>";
 		};
 		439A52652A142A9B00CBF46A /* Resources */ = {
@@ -190,12 +201,12 @@
 			path = SalonDetails;
 			sourceTree = "<group>";
 		};
-		43C671F12A1E4FB500A7628A /* Models */ = {
+		43C671F12A1E4FB500A7628A /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
 				43F645022A20C5E2007D2450 /* BlurViewModel.swift */,
 			);
-			path = Models;
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -295,6 +306,7 @@
 				43838C3F2A19815B00CB6524 /* UIColorExtension.swift in Sources */,
 				43BBB7252A1E3912008FA1C6 /* SettingsVC.swift in Sources */,
 				4391DE172A25F1EB000DF9B3 /* PrivacySettingsVC.swift in Sources */,
+				4345228A2A2B36190086800A /* Salon.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
