@@ -71,6 +71,7 @@ struct MessageModel: View {
                 }
                 Spacer()
             }
+            .background(colorScheme == .dark ? Color("DarkModeColor") : Color("CellColor"))
         }
     }
 }

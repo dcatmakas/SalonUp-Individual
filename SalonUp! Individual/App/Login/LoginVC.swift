@@ -126,7 +126,7 @@ struct LoginVC: View {
                             FeedVC()
                         }
                     }
-                    .padding(.top, 50)
+                    .padding(.top, 30)
                     .padding(.horizontal)
                     
                     HStack {

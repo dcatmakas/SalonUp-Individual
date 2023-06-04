@@ -44,7 +44,7 @@ struct FeedVC: View {
             NavigationView {
                 MapVC()
                     .navigationTitle("Harita")
-                    .toolbarBackground(Color("DarkModeColor"), for: .navigationBar)
+                    .toolbarBackground(colorScheme == .dark ? Color("DarkModeColor") : .clear, for: .navigationBar)
                     .navigationBarTitleDisplayMode(.inline)
             }
             .navigationViewStyle(StackNavigationViewStyle())
@@ -57,11 +57,14 @@ struct FeedVC: View {
                 ScrollView(showsIndicators: false) {
                     ForEach(0 ..< 20) { item in
                         MessagesVC()
+                        
+                        Divider()
                             .navigationTitle("Mesajlar")
                     }
+                    .background(colorScheme == .dark ? Color("DarkModeColor") : Color("CellColor"))
                 }
                 .navigationViewStyle(StackNavigationViewStyle())
-                .toolbarBackground(Color("DarkModeColor"), for: .navigationBar)
+                .toolbarBackground(colorScheme == .dark ? Color("DarkModeColor") : .clear, for: .navigationBar)
             }
             .tabItem {
                 Image(systemName: "message.fill")
@@ -72,7 +75,7 @@ struct FeedVC: View {
                 .navigationTitle("Ayarlar")
             
             .navigationViewStyle(StackNavigationViewStyle())
-            .toolbarBackground(Color("DarkModeColor"), for: .navigationBar)
+            .toolbarBackground(colorScheme == .dark ? Color("DarkModeColor") : .clear, for: .navigationBar)
                 .tabItem {
                     Image(systemName: "gearshape.fill")
                 }
@@ -182,6 +185,6 @@ struct SalonModel: View {
             
         }
         .background(colorScheme == .dark ? Color("DarkModeColor") : .white)
-        .toolbarBackground(Color("DarkModeColor"), for: .navigationBar)
+        .toolbarBackground(colorScheme == .dark ? Color("DarkModeColor") : .clear, for: .navigationBar)
     }
 }

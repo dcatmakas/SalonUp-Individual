@@ -60,7 +60,7 @@ struct ProfileVC: View {
                             .padding(.leading)
                         
                         TextField("Doğukan", text: $name)
-                            .textContentType(.emailAddress)
+                            .textContentType(.name)
                             .padding(.trailing)
                             .foregroundColor(colorScheme == .dark ? .white : .black)
                     }
@@ -84,7 +84,7 @@ struct ProfileVC: View {
                             .padding(.leading)
                         
                         TextField("Çatmakaş", text: $surname)
-                            .textContentType(.emailAddress)
+                            .textContentType(.familyName)
                             .padding(.trailing)
                             .foregroundColor(colorScheme == .dark ? .white : .black)
                     }
@@ -134,10 +134,20 @@ struct ProfileVC: View {
             .sheet(isPresented: $isShowingImagePicker) {
                         ImagePicker(selectedImage: $selectedImage)
             }
+            
+            .onTapGesture {
+                hideKeyboard()
+            }
+            
         }
         .background(colorScheme == .dark ? Color("DarkModeColor") : .white)
         .toolbarBackground(Color("DarkModeColor"), for: .navigationBar)
     }
+    
+    private func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+    
 }
 
 

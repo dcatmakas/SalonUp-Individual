@@ -31,6 +31,7 @@
 		439A525B2A14258B00CBF46A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 439A525A2A14258B00CBF46A /* Preview Assets.xcassets */; };
 		43BBB7252A1E3912008FA1C6 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BBB7242A1E3912008FA1C6 /* SettingsVC.swift */; };
 		43BF065E2A1F58B500C57C92 /* SalonDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BF065D2A1F58B500C57C92 /* SalonDetailsVC.swift */; };
+		43D08FF12A2D16130052C259 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D08FF02A2D16130052C259 /* User.swift */; };
 		43F645032A20C5E2007D2450 /* BlurViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F645022A20C5E2007D2450 /* BlurViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -58,6 +59,7 @@
 		43A395652A24CF03003CBA47 /* SalonUp--Individual-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "SalonUp--Individual-Info.plist"; sourceTree = SOURCE_ROOT; };
 		43BBB7242A1E3912008FA1C6 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		43BF065D2A1F58B500C57C92 /* SalonDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalonDetailsVC.swift; sourceTree = "<group>"; };
+		43D08FF02A2D16130052C259 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		43F645022A20C5E2007D2450 /* BlurViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -87,6 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				434522892A2B36190086800A /* Salon.swift */,
+				43D08FF02A2D16130052C259 /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -296,6 +299,7 @@
 				439A52562A14258B00CBF46A /* LoginVC.swift in Sources */,
 				439A52542A14258B00CBF46A /* SalonUp__IndividualApp.swift in Sources */,
 				43700AB32A1DF5E8005CA31E /* MainView.swift in Sources */,
+				43D08FF12A2D16130052C259 /* User.swift in Sources */,
 				4391DE1B2A25F3D7000DF9B3 /* ContactUsVC.swift in Sources */,
 				43BF065E2A1F58B500C57C92 /* SalonDetailsVC.swift in Sources */,
 				4391DE192A25F36B000DF9B3 /* NotificationSettingsVC.swift in Sources */,
