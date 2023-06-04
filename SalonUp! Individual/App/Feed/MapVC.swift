@@ -32,6 +32,8 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
 
 struct MapVC: View {
     
+    @Environment(\.colorScheme) var colorScheme
+    
     @State var locationManager = LocationManager()
     @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 40.220365, longitude: 28.907517), span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005))
     
@@ -45,6 +47,7 @@ struct MapVC: View {
                     }
                 }
         }
+        .background(colorScheme == .dark ? Color("DarkModeColor") : Color.clear)
     }
 }
 

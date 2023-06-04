@@ -13,6 +13,10 @@ struct ProfileVC: View {
     
     @State var name: String = ""
     @State var surname: String = ""
+    @State var email: String = ""
+    
+    @State private var selectedImage: UIImage?
+    @State private var isShowingImagePicker: Bool = false
     
     var body: some View {
         
@@ -22,8 +26,12 @@ struct ProfileVC: View {
                     Image("dogukan")
                         .resizable()
                         .scaledToFill()
-                        .frame(width: 100, height: 100)
+                        .frame(width: 160, height: 160)
                         .clipShape(Circle())
+                    
+                        .onTapGesture {
+                            isShowingImagePicker = true
+                        }
                 }
                 
                 HStack {
@@ -95,11 +103,11 @@ struct ProfileVC: View {
                         .cornerRadius(16)
                     
                     HStack {
-                        Image(systemName: "figure.dress.line.vertical.figure")
+                        Image(systemName: "envelope.fill")
                             .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                             .padding(.leading)
                         
-                        TextField("Erkek", text: $name)
+                        TextField("dcatmakas@gmail.com", text: $email)
                             .textContentType(.emailAddress)
                             .padding(.trailing)
                             .foregroundColor(colorScheme == .dark ? .white : .black)
@@ -109,13 +117,66 @@ struct ProfileVC: View {
                 .padding()
             }
             
+            Button(action: {
+                // Upload Changes To Firebase
+            }, label: {
+                Text("Kaydet")
+                    .padding(.vertical)
+                    .padding(.horizontal, 80)
+                    .foregroundColor(.white)
+                    .background(Color.green)
+                    .cornerRadius(16)
+            })
+            .padding()
+            
+            Spacer()
+        
+            .sheet(isPresented: $isShowingImagePicker) {
+                        ImagePicker(selectedImage: $selectedImage)
+            }
         }
         .background(colorScheme == .dark ? Color("DarkModeColor") : .white)
+        .toolbarBackground(Color("DarkModeColor"), for: .navigationBar)
     }
 }
+
 
 struct ProfileVC_Previews: PreviewProvider {
     static var previews: some View {
         ProfileVC()
+    }
+}
+
+struct ImagePicker: UIViewControllerRepresentable {
+    @Binding var selectedImage: UIImage?
+    @Environment(\.presentationMode) var presentationMode
+    
+    func makeUIViewController(context: Context) -> UIImagePickerController {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = context.coordinator
+        return imagePicker
+    }
+    
+    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {
+    }
+    
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+    
+    class Coordinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+        let parent: ImagePicker
+        
+        init(_ parent: ImagePicker) {
+            self.parent = parent
+        }
+        
+        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+            if let selectedImage = info[.originalImage] as? UIImage {
+                parent.selectedImage = selectedImage
+            }
+            
+            parent.presentationMode.wrappedValue.dismiss()
+        }
     }
 }

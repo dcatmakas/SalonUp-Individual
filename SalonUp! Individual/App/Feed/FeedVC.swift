@@ -44,6 +44,7 @@ struct FeedVC: View {
             NavigationView {
                 MapVC()
                     .navigationTitle("Harita")
+                    .toolbarBackground(Color("DarkModeColor"), for: .navigationBar)
                     .navigationBarTitleDisplayMode(.inline)
             }
             .navigationViewStyle(StackNavigationViewStyle())
@@ -60,6 +61,7 @@ struct FeedVC: View {
                     }
                 }
                 .navigationViewStyle(StackNavigationViewStyle())
+                .toolbarBackground(Color("DarkModeColor"), for: .navigationBar)
             }
             .tabItem {
                 Image(systemName: "message.fill")
@@ -70,6 +72,7 @@ struct FeedVC: View {
                 .navigationTitle("Ayarlar")
             
             .navigationViewStyle(StackNavigationViewStyle())
+            .toolbarBackground(Color("DarkModeColor"), for: .navigationBar)
                 .tabItem {
                     Image(systemName: "gearshape.fill")
                 }
@@ -94,7 +97,8 @@ struct SalonModel: View {
         
         NavigationLink {
              SalonDetailsVC()
-                .navigationBarHidden(true)
+                .toolbarBackground(.hidden, for: .navigationBar)
+                .toolbar(.hidden, for: .navigationBar)
         } label: {
                 
             LazyVStack {
@@ -178,5 +182,6 @@ struct SalonModel: View {
             
         }
         .background(colorScheme == .dark ? Color("DarkModeColor") : .white)
+        .toolbarBackground(Color("DarkModeColor"), for: .navigationBar)
     }
 }
