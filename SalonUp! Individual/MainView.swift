@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct MainView: View {
     
@@ -15,7 +16,12 @@ struct MainView: View {
     var body: some View {
         ZStack {
             
-            LoginVC()
+            if Auth.auth().currentUser != nil {
+                FeedVC()
+                
+            } else {
+                LoginVC()
+            }
             
             ZStack {
                 Color("MainColor")

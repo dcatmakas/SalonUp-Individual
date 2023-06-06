@@ -32,6 +32,8 @@
 		43BBB7252A1E3912008FA1C6 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BBB7242A1E3912008FA1C6 /* SettingsVC.swift */; };
 		43BF065E2A1F58B500C57C92 /* SalonDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BF065D2A1F58B500C57C92 /* SalonDetailsVC.swift */; };
 		43D08FF12A2D16130052C259 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D08FF02A2D16130052C259 /* User.swift */; };
+		43F1A3882A2F952900D2F618 /* ProfilePhotoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F1A3872A2F952900D2F618 /* ProfilePhotoVC.swift */; };
+		43F1A38A2A2FAE6400D2F618 /* UserInformationsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F1A3892A2FAE6400D2F618 /* UserInformationsVC.swift */; };
 		43F645032A20C5E2007D2450 /* BlurViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F645022A20C5E2007D2450 /* BlurViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +62,8 @@
 		43BBB7242A1E3912008FA1C6 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		43BF065D2A1F58B500C57C92 /* SalonDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalonDetailsVC.swift; sourceTree = "<group>"; };
 		43D08FF02A2D16130052C259 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		43F1A3872A2F952900D2F618 /* ProfilePhotoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePhotoVC.swift; sourceTree = "<group>"; };
+		43F1A3892A2FAE6400D2F618 /* UserInformationsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInformationsVC.swift; sourceTree = "<group>"; };
 		43F645022A20C5E2007D2450 /* BlurViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -89,7 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				434522892A2B36190086800A /* Salon.swift */,
-				43D08FF02A2D16130052C259 /* User.swift */,
+				43EF44802A2F2F50009104C5 /* UserData */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -106,7 +110,6 @@
 			isa = PBXGroup;
 			children = (
 				439A52552A14258B00CBF46A /* LoginVC.swift */,
-				43700AB42A1DF60E005CA31E /* SignUpVC.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -122,7 +125,7 @@
 			path = Feed;
 			sourceTree = "<group>";
 		};
-		4391DE112A25E76A000DF9B3 /* SettingsParameters */ = {
+		4391DE112A25E76A000DF9B3 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
 				4391DE122A25E79D000DF9B3 /* ProfileVC.swift */,
@@ -132,7 +135,7 @@
 				4391DE1A2A25F3D7000DF9B3 /* ContactUsVC.swift */,
 				4391DE1C2A25F464000DF9B3 /* SSS-VC.swift */,
 			);
-			path = SettingsParameters;
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		439A52472A14258B00CBF46A = {
@@ -181,9 +184,10 @@
 			isa = PBXGroup;
 			children = (
 				43838C442A198DCC00CB6524 /* Login */,
+				43F1A3842A2F8F5E00D2F618 /* Register */,
 				43838C452A198DDF00CB6524 /* Feed */,
-				4391DE112A25E76A000DF9B3 /* SettingsParameters */,
 				43BF065C2A1F589A00C57C92 /* SalonDetails */,
+				4391DE112A25E76A000DF9B3 /* Settings */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -210,6 +214,24 @@
 				43F645022A20C5E2007D2450 /* BlurViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		43EF44802A2F2F50009104C5 /* UserData */ = {
+			isa = PBXGroup;
+			children = (
+				43D08FF02A2D16130052C259 /* User.swift */,
+			);
+			path = UserData;
+			sourceTree = "<group>";
+		};
+		43F1A3842A2F8F5E00D2F618 /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				43700AB42A1DF60E005CA31E /* SignUpVC.swift */,
+				43F1A3872A2F952900D2F618 /* ProfilePhotoVC.swift */,
+				43F1A3892A2FAE6400D2F618 /* UserInformationsVC.swift */,
+			);
+			path = Register;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -294,12 +316,14 @@
 				43700ABC2A1E2A4F005CA31E /* MessagesVC.swift in Sources */,
 				43700AB72A1E0832005CA31E /* LaunchScreen.swift in Sources */,
 				4391DE1D2A25F464000DF9B3 /* SSS-VC.swift in Sources */,
+				43F1A3882A2F952900D2F618 /* ProfilePhotoVC.swift in Sources */,
 				43838C472A198E6100CB6524 /* FeedVC.swift in Sources */,
 				43F645032A20C5E2007D2450 /* BlurViewModel.swift in Sources */,
 				439A52562A14258B00CBF46A /* LoginVC.swift in Sources */,
 				439A52542A14258B00CBF46A /* SalonUp__IndividualApp.swift in Sources */,
 				43700AB32A1DF5E8005CA31E /* MainView.swift in Sources */,
 				43D08FF12A2D16130052C259 /* User.swift in Sources */,
+				43F1A38A2A2FAE6400D2F618 /* UserInformationsVC.swift in Sources */,
 				4391DE1B2A25F3D7000DF9B3 /* ContactUsVC.swift in Sources */,
 				43BF065E2A1F58B500C57C92 /* SalonDetailsVC.swift in Sources */,
 				4391DE192A25F36B000DF9B3 /* NotificationSettingsVC.swift in Sources */,

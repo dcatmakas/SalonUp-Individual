@@ -24,7 +24,7 @@ struct SignUpVC: View {
     @State var isPasswordVisible: Bool = false
     
     // Navigations
-    @State var goFeedVC: Bool = false
+    @State var goProfilePhotoVC: Bool = false
     @State var goLoginVC: Bool = false
     
     // Alerts
@@ -181,8 +181,8 @@ struct SignUpVC: View {
                                 .foregroundColor(.white)
                                 .cornerRadius(16)
                         }
-                        .fullScreenCover(isPresented: $goFeedVC) {
-                            FeedVC()
+                        .fullScreenCover(isPresented: $goProfilePhotoVC) {
+                            ProfilePhotoVC()
                         }
                     }
                     .padding(.top, 15)
@@ -291,7 +291,7 @@ struct SignUpVC: View {
                             let usernameQuery = usernamesRef.whereField("username", isEqualTo: self.usernameText)
                             
                             usernameQuery.getDocuments { QuerySnapshot, error in
-                                if let error = error {
+                                if error != nil {
                                     showAlert(title: "Hata!", message: "Bir Hata Oluştu.")
                                 } else if let snapshot = QuerySnapshot {
                                     if snapshot.documents.count > 0 {
@@ -319,13 +319,13 @@ struct SignUpVC: View {
                                                 
                                                 let usersRef = database.collection("users")
                                                 usersRef.document(userID).setData(userData) { error in
-                                                    if let error = error {
+                                                    if error != nil {
                                                         showAlert(title: "Hata!", message: "Bir Sorunla Karşılaşıldı.")
                                                     }
                                                     
                                                     database.collection("usernames")
                                                     usernamesRef.document(userID).setData(usernameData) { error in
-                                                        if let error = error {
+                                                        if error != nil {
                                                             showAlert(title: "Hata!", message: "Bir Sorunla Karşılaşıldı.")
                                                         }
                                                         
@@ -333,7 +333,7 @@ struct SignUpVC: View {
 //                                                        User(username: <#T##String#>, firstName: <#T##String#>, lastName: <#T##String#>, email: <#T##String#>, profileImage: <#T##UIImage#>, userUUID: <#T##UUID#>)
                                                         
                                                         // Sign Up And Log In To The App
-                                                        goFeedVC = true
+                                                        goProfilePhotoVC = true
                                                         
                                                     }
                                                 }
