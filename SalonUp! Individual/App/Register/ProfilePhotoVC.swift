@@ -7,16 +7,27 @@
 
 import SwiftUI
 
+
 struct ProfilePhotoVC: View {
     
     @Environment(\.colorScheme) var colorScheme
     
+    // Segues
     @State private var goUserInformationsVC: Bool = false
+    @State private var goFeedVC: Bool = false
     
+    // Image Picker
     @State private var isShowingImagePicker: Bool = false
     
     // Profile Datas
     @State var profilePhoto: UIImage?
+    
+    // Datas From Previus VCs
+    @Binding var username: String
+    @Binding var email: String
+    @Binding var name: String
+    @Binding var surname : String
+    @Binding var gender: String
     
     var body: some View {
         VStack {
@@ -26,7 +37,7 @@ struct ProfilePhotoVC: View {
                 
                 Button {
                     // Go Next View.
-                    goUserInformationsVC = true
+                    goFeedVC = true
                     
                 } label: {
                     Text("Şimdilik Atla")
@@ -34,11 +45,11 @@ struct ProfilePhotoVC: View {
                 }
             }
             .padding(.horizontal)
-            .padding(.top)
+            .padding(.top, 5)
             
             HStack {
                 VStack(alignment: .leading) {
-                    Text("Hey 👋")
+                    Text("Memnun Oldum, \(username) 🤩")
                         .font(.largeTitle)
                         .fontWeight(.heavy)
                         .foregroundColor(Color("MainColor"))
@@ -46,13 +57,13 @@ struct ProfilePhotoVC: View {
                         .padding(.bottom, 5)
                     
                     Text("Buradan Profil Fotoğrafını Belirleyebilirsin.")
-                        .font(.title)
+                        .font(.title2)
                         .fontWeight(.heavy)
                         .padding(.bottom)
                 }
                 Spacer()
             }
-            .padding()
+            .padding(.horizontal)
             
             
             VStack {
@@ -61,16 +72,20 @@ struct ProfilePhotoVC: View {
                 
                 ZStack {
                     if colorScheme == .light {
-                        Image("ProfilePhotoIconLight")
+                        Image(systemName: "person.circle.fill")
                             .resizable()
                             .scaledToFill()
                             .frame(width: 180, height: 180)
+                            .foregroundColor(.gray)
                         
                      } else {
-                        Image("ProfilePhotoIconDark")
+                        Image(systemName: "person.circle.fill")
                             .resizable()
                             .scaledToFill()
                             .frame(width: 180, height: 180)
+                            .foregroundColor(Color.gray)
+                            .background(Color.white)
+                            .clipShape(Circle())
                     }
                 }
                 .onTapGesture {
@@ -83,9 +98,9 @@ struct ProfilePhotoVC: View {
             
             HStack {
                 Button {
-                    // Save And Next
+                    finishSignUp()
                 } label: {
-                    Text("Devam")
+                    Text("Bitir")
                         .padding(.vertical)
                         .padding(.horizontal, 60)
                         .foregroundColor(.white)
@@ -98,15 +113,22 @@ struct ProfilePhotoVC: View {
             Spacer()
         }
         
-        .fullScreenCover(isPresented: $goUserInformationsVC) {
-            UserInformationsVC()
+        .fullScreenCover(isPresented: $goFeedVC) {
+            FeedVC()
         }
-        
+        .background(colorScheme == .dark ? Color("DarkModeColor") : .white)
     }
+    
+    private func finishSignUp() {
+        // Update Data
+        
+        goFeedVC = true
+    }
+    
 }
 
 struct ProfilePhotoVC_Previews: PreviewProvider {
     static var previews: some View {
-        ProfilePhotoVC()
+        ProfilePhotoVC(username: .constant("Username"), email: .constant("Email"), name: .constant("Name"), surname: .constant("Surname"), gender: .constant("Cinsiyet"))
     }
 }

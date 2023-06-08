@@ -24,7 +24,7 @@ struct SignUpVC: View {
     @State var isPasswordVisible: Bool = false
     
     // Navigations
-    @State var goProfilePhotoVC: Bool = false
+    @State var goUserInformationsVC: Bool = false
     @State var goLoginVC: Bool = false
     
     // Alerts
@@ -181,8 +181,8 @@ struct SignUpVC: View {
                                 .foregroundColor(.white)
                                 .cornerRadius(16)
                         }
-                        .fullScreenCover(isPresented: $goProfilePhotoVC) {
-                            ProfilePhotoVC()
+                        .fullScreenCover(isPresented: $goUserInformationsVC) {
+                            UserInformationsVC(username: $usernameText, email: $emailText)
                         }
                     }
                     .padding(.top, 15)
@@ -333,7 +333,7 @@ struct SignUpVC: View {
 //                                                        User(username: <#T##String#>, firstName: <#T##String#>, lastName: <#T##String#>, email: <#T##String#>, profileImage: <#T##UIImage#>, userUUID: <#T##UUID#>)
                                                         
                                                         // Sign Up And Log In To The App
-                                                        goProfilePhotoVC = true
+                                                        goUserInformationsVC = true
                                                         
                                                     }
                                                 }
