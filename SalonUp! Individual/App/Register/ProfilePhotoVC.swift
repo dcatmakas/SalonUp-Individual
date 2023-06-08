@@ -6,11 +6,15 @@
 //
 
 import SwiftUI
+import Firebase
+import FirebaseFirestore
+import FirebaseStorage
 
 
 struct ProfilePhotoVC: View {
     
     @Environment(\.colorScheme) var colorScheme
+    @Environment(\.presentationMode) var presentationMode
     
     // Segues
     @State private var goUserInformationsVC: Bool = false
@@ -28,10 +32,24 @@ struct ProfilePhotoVC: View {
     @Binding var name: String
     @Binding var surname : String
     @Binding var gender: String
+    @Binding var userUUID: UUID
+    
+    // Defaults
+    @State private var defaultName: String = "Name"
     
     var body: some View {
         VStack {
             HStack {
+                
+                Button {
+                    // Go Back
+                    presentationMode.wrappedValue.dismiss()
+                } label: {
+                    Image(systemName: "chevron.backward")
+                        .foregroundColor(colorScheme == .dark ? .white : .black)
+                        .font(.title3)
+                }
+
                 
                 Spacer()
                 
@@ -49,10 +67,10 @@ struct ProfilePhotoVC: View {
             
             HStack {
                 VStack(alignment: .leading) {
-                    Text("Memnun Oldum, \(username) 🤩")
+                    Text(name == defaultName ? "Selam Gizli Kişilik 👀" : "Memnun Oldum, \(name) 🤩")
                         .font(.largeTitle)
                         .fontWeight(.heavy)
-                        .foregroundColor(Color("MainColor"))
+//                        .foregroundColor(Color("MainColor"))
                         .padding(.top)
                         .padding(.bottom, 5)
                     
@@ -60,6 +78,7 @@ struct ProfilePhotoVC: View {
                         .font(.title2)
                         .fontWeight(.heavy)
                         .padding(.bottom)
+                        .foregroundColor(.gray)
                 }
                 Spacer()
             }
@@ -71,21 +90,37 @@ struct ProfilePhotoVC: View {
                     .font(.largeTitle)
                 
                 ZStack {
-                    if colorScheme == .light {
-                        Image(systemName: "person.circle.fill")
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 180, height: 180)
-                            .foregroundColor(.gray)
+                    if profilePhoto != nil {
                         
-                     } else {
-                        Image(systemName: "person.circle.fill")
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 180, height: 180)
-                            .foregroundColor(Color.gray)
-                            .background(Color.white)
-                            .clipShape(Circle())
+                    } else {
+                        if colorScheme == .light {
+                            Image(systemName: "person.circle.fill")
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 220, height: 220)
+                                .foregroundColor(.gray)
+                                .background(Color.white)
+                                .colorMultiply(.black.opacity(0.5))
+                                .clipShape(Circle())
+                            
+                            Image(systemName: "photo.fill")
+                                .font(Font.system(size: 40))
+                                .foregroundColor(.white)
+                            
+                        } else {
+                            Image(systemName: "person.circle.fill")
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 220, height: 220)
+                                .foregroundColor(Color.gray)
+                                .background(Color.black)
+                                .colorMultiply(.white.opacity(0.5))
+                                .clipShape(Circle())
+                            
+                            Image(systemName: "photo.fill")
+                                .font(Font.system(size: 40))
+                                .foregroundColor(.white)
+                        }
                     }
                 }
                 .onTapGesture {
@@ -116,11 +151,18 @@ struct ProfilePhotoVC: View {
         .fullScreenCover(isPresented: $goFeedVC) {
             FeedVC()
         }
+        
         .background(colorScheme == .dark ? Color("DarkModeColor") : .white)
     }
     
     private func finishSignUp() {
-        // Update Data
+        // Database References
+        let database = Firestore.firestore()
+        let storage = Storage.storage()
+        // Storage Database Reference
+        let storageReference = storage.reference()
+        let profilePhotosFolder = storageReference.child("userProfilePhotos")
+        let imageReference = profilePhotosFolder.child("\(username).\(userUUID).jpg")
         
         goFeedVC = true
     }
@@ -129,6 +171,6 @@ struct ProfilePhotoVC: View {
 
 struct ProfilePhotoVC_Previews: PreviewProvider {
     static var previews: some View {
-        ProfilePhotoVC(username: .constant("Username"), email: .constant("Email"), name: .constant("Name"), surname: .constant("Surname"), gender: .constant("Cinsiyet"))
+        ProfilePhotoVC(username: .constant("Username"), email: .constant("Email"), name: .constant("Name"), surname: .constant("Surname"), gender: .constant("Cinsiyet"), userUUID: .constant(UUID()))
     }
 }

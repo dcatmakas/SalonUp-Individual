@@ -19,6 +19,7 @@ struct SignUpVC: View {
     @State var usernameText: String = ""
     @State var passwordText: String = ""
     @State var passwordAgainText: String = ""
+    @State var userUUID = UUID()
     
     // Password Visible
     @State var isPasswordVisible: Bool = false
@@ -182,7 +183,7 @@ struct SignUpVC: View {
                                 .cornerRadius(16)
                         }
                         .fullScreenCover(isPresented: $goUserInformationsVC) {
-                            UserInformationsVC(username: $usernameText, email: $emailText)
+                            UserInformationsVC(username: $usernameText, email: $emailText, userUUID: $userUUID)
                         }
                     }
                     .padding(.top, 15)
@@ -328,9 +329,7 @@ struct SignUpVC: View {
                                                         if error != nil {
                                                             showAlert(title: "Hata!", message: "Bir Sorunla Karşılaşıldı.")
                                                         }
-                                                        
-                                                        // Save User Datas On Phone
-//                                                        User(username: <#T##String#>, firstName: <#T##String#>, lastName: <#T##String#>, email: <#T##String#>, profileImage: <#T##UIImage#>, userUUID: <#T##UUID#>)
+                                                        userUUID = UUID()
                                                         
                                                         // Sign Up And Log In To The App
                                                         goUserInformationsVC = true

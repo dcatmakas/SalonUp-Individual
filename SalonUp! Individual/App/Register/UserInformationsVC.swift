@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import Firebase
+import FirebaseFirestore
 
 struct UserInformationsVC: View {
     
@@ -24,6 +26,7 @@ struct UserInformationsVC: View {
     // Datas From Previus Screens
     @Binding var username: String
     @Binding var email: String
+    @Binding var userUUID: UUID
     
     // Texts
     @State var name: String = ""
@@ -172,7 +175,7 @@ struct UserInformationsVC: View {
         .background(Color(colorScheme == .dark ? UIColor(Color("DarkModeColor")) : .white))
         
         .fullScreenCover(isPresented: $goProfilePhotoVC) {
-            ProfilePhotoVC(username: $username, email: $email, name: $name, surname: $surname, gender: $selectedGender)
+            ProfilePhotoVC(username: $username, email: $email, name: $name, surname: $surname, gender: $selectedGender, userUUID: $userUUID)
         }
         
         .onTapGesture {
@@ -182,9 +185,25 @@ struct UserInformationsVC: View {
     }
     
     private func nextButtonClicked() {
-        // upload
+        // Upload Datas
+        let database = Firestore.firestore()
+        let user = Auth.auth().currentUser
         
-        goProfilePhotoVC = true
+        if let user = user {
+            let userReference = database.collection("users").document(user.uid)
+            userReference.updateData(["name" : name,
+                                      "surname" : surname,
+                                      "gender" : selectedGender]) { error in
+                if let error = error {
+                    print("Update Esnasında Bir Sorun Oluştu.")
+                } else {
+                    print("Update Başarılı.")
+                    
+                    // Update Succesfull and Go Next View.
+                    goProfilePhotoVC = true
+                }
+            }
+        }
     }
     
     private func hideKeyboard() {
@@ -195,6 +214,6 @@ struct UserInformationsVC: View {
 
 struct UserInformationsVC_Previews: PreviewProvider {
     static var previews: some View {
-        UserInformationsVC(username: .constant("Username"), email: .constant("Email"))
+        UserInformationsVC(username: .constant("Username"), email: .constant("Email"), userUUID: .constant(UUID()))
     }
 }
