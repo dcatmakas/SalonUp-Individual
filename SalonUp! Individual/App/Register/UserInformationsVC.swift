@@ -29,8 +29,8 @@ struct UserInformationsVC: View {
     @Binding var userUUID: UUID
     
     // Texts
-    @State var name: String = ""
-    @State var surname: String = ""
+    @State var name: String = "".capitalized
+    @State var surname: String = "".capitalized
     
     // Segues
     @State private var goProfilePhotoVC: Bool = false
@@ -191,10 +191,10 @@ struct UserInformationsVC: View {
         
         if let user = user {
             let userReference = database.collection("users").document(user.uid)
-            userReference.updateData(["name" : name,
-                                      "surname" : surname,
+            userReference.updateData(["name" : name.capitalized,
+                                      "surname" : surname.capitalized,
                                       "gender" : selectedGender]) { error in
-                if let error = error {
+                if error != nil {
                     print("Update Esnasında Bir Sorun Oluştu.")
                 } else {
                     print("Update Başarılı.")

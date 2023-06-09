@@ -21,10 +21,10 @@ struct ProfilePhotoVC: View {
     @State private var goFeedVC: Bool = false
     
     // Image Picker
-    @State private var isShowingImagePicker: Bool = false
+    @State private var showImagePicker: Bool = false
     
     // Profile Datas
-    @State var profilePhoto: UIImage?
+    @State private var profilePhoto: UIImage?
     
     // Datas From Previus VCs
     @Binding var username: String
@@ -67,7 +67,7 @@ struct ProfilePhotoVC: View {
             
             HStack {
                 VStack(alignment: .leading) {
-                    Text(name == defaultName ? "Selam Gizli Kişilik 👀" : "Memnun Oldum, \(name) 🤩")
+                    Text(name == defaultName ? "Selam Gizli Kişilik 👀" : "Memnun Oldum, \(name.capitalized) 🤩")
                         .font(.largeTitle)
                         .fontWeight(.heavy)
 //                        .foregroundColor(Color("MainColor"))
@@ -91,6 +91,24 @@ struct ProfilePhotoVC: View {
                 
                 ZStack {
                     if profilePhoto != nil {
+                        if colorScheme == .light {
+                            Image(uiImage: profilePhoto!)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 220, height: 220)
+                                .foregroundColor(.gray)
+                                .background(Color.white)
+                                .clipShape(Circle())
+                            
+                        } else {
+                            Image(uiImage: profilePhoto!)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 220, height: 220)
+                                .foregroundColor(.gray)
+                                .background(Color.white)
+                                .clipShape(Circle())
+                        }
                         
                     } else {
                         if colorScheme == .light {
@@ -124,8 +142,12 @@ struct ProfilePhotoVC: View {
                     }
                 }
                 .onTapGesture {
-                    // Open Gallery And Pick A Profile Photo
+                    showImagePicker = true
                 }
+                .sheet(isPresented: $showImagePicker, onDismiss: loadImage) {
+                    ImagePickerModel(selectedImage: $profilePhoto)
+                }
+                
             }
             .padding(.horizontal)
             
@@ -156,16 +178,56 @@ struct ProfilePhotoVC: View {
     }
     
     private func finishSignUp() {
+        
         // Database References
         let database = Firestore.firestore()
-        let storage = Storage.storage()
+        
         // Storage Database Reference
+        let storage = Storage.storage()
         let storageReference = storage.reference()
         let profilePhotosFolder = storageReference.child("userProfilePhotos")
         let imageReference = profilePhotosFolder.child("\(username).\(userUUID).jpg")
         
+        if let imageData = profilePhoto?.jpegData(compressionQuality: 0.5) {
+            imageReference.putData(imageData) { metadata, error in
+                if error != nil {
+                    // Make Error
+                } else {
+                    imageReference.downloadURL { url, error in
+                        if let imageUrl = url?.absoluteString {
+                            let user = Auth.auth().currentUser
+                            
+                            if let user = user {
+                                let userRef = database.collection("users").document(user.uid)
+                                userRef.updateData(["profilePhoto" : imageUrl]) { error in
+                                    if error != nil {
+                                        print("Bir Hata Oluştu.")
+                                    } else {
+                                        print("Upload Başarılı")
+                                        
+                                        let currentUser = User(username: username, firstName: name.capitalized, lastName: surname.capitalized, email: email, profileImageData: imageData, userUUID: userUUID)
+                                        
+                                        UserManager.shared.saveUser(currentUser)
+                                        
+                                        print("Data Kaydı Başarılı.")
+                                        
+                                        goFeedVC = true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
         goFeedVC = true
     }
+    
+    private func loadImage() {
+        guard profilePhoto != nil else { return }
+    }
+
     
 }
 
