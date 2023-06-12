@@ -22,6 +22,11 @@ struct ProfileVC: View {
     @State private var selectedImage: UIImage?
     @State private var isShowingImagePicker: Bool = false
     
+    @State private var showUploadError: Bool = false
+    @State private var alertTitle: String = ""
+    @State private var alertMessage: String = ""
+    @State private var alertDismissButton: String = ""
+    
     var body: some View {
         
         ScrollView(showsIndicators: false) {
@@ -30,7 +35,7 @@ struct ProfileVC: View {
                     VStack {
                         if let currentUser = UserManager.shared.getUser() {
                             if let profileImage = UIImage(data: currentUser.profileImageData ?? Data()) {
-                                // Kullanıcının profil fotoğrafı varsa
+                                // If User Has A Profile Photo
                                 if selectedImage == nil {
                                     Image(uiImage: profileImage)
                                         .resizable()
@@ -48,7 +53,7 @@ struct ProfileVC: View {
                                         .padding(.bottom)
                                 }
                             } else {
-                                // Kullanıcının profil fotoğrafı yoksa
+                                // If User Does Not Have A Profile Photo
                                 if colorScheme == .light {
                                     ZStack {
                                         Image(systemName: "person.circle.fill")
@@ -219,10 +224,17 @@ struct ProfileVC: View {
                         hideKeyboard()
                     }
                 
+                    .alert(isPresented: $showUploadError) {
+                        Alert(title: Text(alertTitle),
+                              message: Text(alertMessage),
+                              dismissButton: .default(Text("Tamam"))
+                        )
+                    }
+                                
             }
-            .background(colorScheme == .dark ? Color("DarkModeColor") : .white)
-            .toolbarBackground(colorScheme == .dark ? Color("DarkModeColor") : .clear, for: .navigationBar)
         }
+        .background(colorScheme == .dark ? Color("DarkModeColor") : .white)
+        .toolbarBackground(colorScheme == .dark ? Color("DarkModeColor") : .clear, for: .navigationBar)
     }
     
     private func hideKeyboard() {
@@ -243,7 +255,7 @@ struct ProfileVC: View {
             if let imageData = (selectedImage != nil ? selectedImage : UIImage(data: currentUser.profileImageData!))?.jpegData(compressionQuality: 0.5) {
                 imageReference.putData(imageData) { metadata, error in
                     if error != nil {
-                        // Make Error
+                        showAlert(title: "Hata!", message: "Bilgilerin Kaydedilmesi Esnasında Hata Oluştu. Lütfen Tekrar Deneyiniz.")
                     } else {
                         imageReference.downloadURL { url, error in
                             if let imageUrl = url?.absoluteString {
@@ -278,6 +290,13 @@ struct ProfileVC: View {
             }
         }
     }
+    
+    private func showAlert(title: String, message: String) {
+        alertTitle = title
+        alertMessage = message
+        showUploadError = true
+    }
+    
 }
 
 
