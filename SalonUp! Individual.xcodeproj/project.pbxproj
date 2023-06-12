@@ -32,6 +32,8 @@
 		43A7BCA62A2FB87A0067A254 /* ImagePickerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A7BCA52A2FB87A0067A254 /* ImagePickerModel.swift */; };
 		43BBB7252A1E3912008FA1C6 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BBB7242A1E3912008FA1C6 /* SettingsVC.swift */; };
 		43BF065E2A1F58B500C57C92 /* SalonDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BF065D2A1F58B500C57C92 /* SalonDetailsVC.swift */; };
+		43C23F0D2A33D4AF005941EB /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 43C23F0C2A33D4AF005941EB /* SDWebImage */; };
+		43C23F0F2A33D4AF005941EB /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 43C23F0E2A33D4AF005941EB /* SDWebImageMapKit */; };
 		43D08FF12A2D16130052C259 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D08FF02A2D16130052C259 /* User.swift */; };
 		43F1A3882A2F952900D2F618 /* ProfilePhotoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F1A3872A2F952900D2F618 /* ProfilePhotoVC.swift */; };
 		43F1A38A2A2FAE6400D2F618 /* UserInformationsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F1A3892A2FAE6400D2F618 /* UserInformationsVC.swift */; };
@@ -75,7 +77,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				4332C1BA2A1A46CF003959E4 /* FirebaseAuth in Frameworks */,
+				43C23F0F2A33D4AF005941EB /* SDWebImageMapKit in Frameworks */,
 				4332C1BC2A1A46CF003959E4 /* FirebaseFirestore in Frameworks */,
+				43C23F0D2A33D4AF005941EB /* SDWebImage in Frameworks */,
 				4332C1BE2A1A46CF003959E4 /* FirebaseStorage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -257,6 +261,8 @@
 				4332C1B92A1A46CF003959E4 /* FirebaseAuth */,
 				4332C1BB2A1A46CF003959E4 /* FirebaseFirestore */,
 				4332C1BD2A1A46CF003959E4 /* FirebaseStorage */,
+				43C23F0C2A33D4AF005941EB /* SDWebImage */,
+				43C23F0E2A33D4AF005941EB /* SDWebImageMapKit */,
 			);
 			productName = "SalonUp! Individual";
 			productReference = 439A52502A14258B00CBF46A /* SalonUp! Individual.app */;
@@ -288,6 +294,7 @@
 			mainGroup = 439A52472A14258B00CBF46A;
 			packageReferences = (
 				4332C1B82A1A46CF003959E4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				43C23F0B2A33D4AF005941EB /* XCRemoteSwiftPackageReference "SDWebImage" */,
 			);
 			productRefGroup = 439A52512A14258B00CBF46A /* Products */;
 			projectDirPath = "";
@@ -551,6 +558,14 @@
 				minimumVersion = 10.0.0;
 			};
 		};
+		43C23F0B2A33D4AF005941EB /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -568,6 +583,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4332C1B82A1A46CF003959E4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
+		};
+		43C23F0C2A33D4AF005941EB /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 43C23F0B2A33D4AF005941EB /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+		43C23F0E2A33D4AF005941EB /* SDWebImageMapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 43C23F0B2A33D4AF005941EB /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImageMapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

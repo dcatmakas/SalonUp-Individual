@@ -29,9 +29,8 @@ struct ProfileVC: View {
                 VStack {
                     VStack {
                         if let currentUser = UserManager.shared.getUser() {
-                            
-                            if let profileImage = UIImage(data: currentUser.profileImageData) {
-                            
+                            if let profileImage = UIImage(data: currentUser.profileImageData ?? Data()) {
+                                // Kullanıcının profil fotoğrafı varsa
                                 if selectedImage == nil {
                                     Image(uiImage: profileImage)
                                         .resizable()
@@ -39,8 +38,8 @@ struct ProfileVC: View {
                                         .frame(width: 160, height: 160)
                                         .clipShape(Circle())
                                         .padding(.bottom)
-                                    
                                 } else {
+                                    // Eğer kullanıcı başka bir fotoğraf seçtiyse
                                     Image(uiImage: selectedImage!)
                                         .resizable()
                                         .scaledToFill()
@@ -48,8 +47,8 @@ struct ProfileVC: View {
                                         .clipShape(Circle())
                                         .padding(.bottom)
                                 }
-                                
                             } else {
+                                // Kullanıcının profil fotoğrafı yoksa
                                 if colorScheme == .light {
                                     ZStack {
                                         Image(systemName: "person.circle.fill")
@@ -66,7 +65,6 @@ struct ProfileVC: View {
                                             .foregroundColor(.white)
                                     }
                                     .padding(.bottom)
-                                    
                                 } else {
                                     ZStack {
                                         Image(systemName: "person.circle.fill")
@@ -90,32 +88,12 @@ struct ProfileVC: View {
                     .onTapGesture {
                         isShowingImagePicker = true
                     }
-                    
-                    HStack {
-                        if let currentUser = UserManager.shared.getUser() {
-                            if currentUser.firstName != "" && currentUser.lastName != "" {
-                                Text("\(currentUser.firstName) \(currentUser.lastName)")
-                                    .foregroundColor(colorScheme == .dark ? .white : .black)
-                                    .fontWeight(.bold)
-                                    .font(.title)
-                                    .padding()
-                            } else {
-                                Text(currentUser.username)
-                                    .foregroundColor(colorScheme == .dark ? .white : .black)
-                                    .fontWeight(.bold)
-                                    .font(.title)
-                                    .padding()
-                            }
-                            
-                        } else {
-                            Text("Ad Soyad")
-                                .foregroundColor(colorScheme == .dark ? .white : .black)
-                                .fontWeight(.bold)
-                                .font(.title)
-                                .padding()
-                        }
-                    }
                 }
+                .sheet(isPresented: $isShowingImagePicker) {
+                    ImagePickerModel(selectedImage: $selectedImage)
+                }
+
+
                 
                 VStack {
                     ZStack {
@@ -139,7 +117,7 @@ struct ProfileVC: View {
                                     .padding(.trailing)
                                     .foregroundColor(colorScheme == .dark ? .white : .black)
                             } else {
-                                TextField("Adınız", text: $surname)
+                                TextField("Adınız", text: $name)
                                     .textContentType(.familyName)
                                     .padding(.trailing)
                                     .foregroundColor(colorScheme == .dark ? .white : .black)
@@ -205,7 +183,7 @@ struct ProfileVC: View {
                                     .padding(.trailing)
                                     .foregroundColor(colorScheme == .dark ? .white : .black)
                             } else {
-                                TextField("Mail Adresi", text: $surname)
+                                TextField("Mail Adresi", text: $email)
                                     .textContentType(.familyName)
                                     .padding(.trailing)
                                     .foregroundColor(colorScheme == .dark ? .white : .black)
@@ -262,7 +240,7 @@ struct ProfileVC: View {
         if let currentUser = UserManager.shared.getUser() {
             let imageReference = profilePhotosFolder.child("\(currentUser.username).\(currentUser.userUUID).jpg")
             
-            if let imageData = selectedImage?.jpegData(compressionQuality: 0.5) {
+            if let imageData = (selectedImage != nil ? selectedImage : UIImage(data: currentUser.profileImageData!))?.jpegData(compressionQuality: 0.5) {
                 imageReference.putData(imageData) { metadata, error in
                     if error != nil {
                         // Make Error
@@ -273,13 +251,16 @@ struct ProfileVC: View {
                                 
                                 if let user = user {
                                     let userRef = database.collection("users").document(user.uid)
-                                    userRef.updateData(["profilePhoto" : imageUrl]) { error in
+                                    userRef.updateData(["profilePhoto" : imageUrl,
+                                                        "name" : name != "" ? name : currentUser.firstName.capitalized,
+                                                        "surname" : surname != "" ? surname : currentUser.lastName.capitalized]) { error in
+                                        
                                         if error != nil {
                                             print("Bir Hata Oluştu.")
                                         } else {
                                             print("Upload Başarılı")
                                             
-                                            let currentUser = User(username: currentUser.username, firstName: currentUser.firstName, lastName: currentUser.lastName, email: currentUser.email, profileImageData: imageData, userUUID: currentUser.userUUID)
+                                            let currentUser = User(username: currentUser.username, firstName: name != "" ? name.capitalized : currentUser.firstName.capitalized, lastName: surname != "" ? surname.capitalized : currentUser.lastName.capitalized, email: currentUser.email, gender: currentUser.gender, profileImageData: imageData, userUUID: currentUser.userUUID)
                                             
                                             UserManager.shared.saveUser(currentUser)
                                             

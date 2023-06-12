@@ -8,6 +8,7 @@
 import SwiftUI
 import Firebase
 import FirebaseAuth
+import FirebaseStorage
 
 struct LoginVC: View {
     
@@ -110,7 +111,6 @@ struct LoginVC: View {
                     
                     VStack {
                         Button {
-//                            goFeedVC = true
                             SignIn(email: emailText, password: passwordText)
                             
                         } label: {
@@ -208,7 +208,7 @@ struct LoginVC: View {
         }
         
         .alert(isPresented: $signInError) {
-            AlertMessage(title: "Hata!", message: "Bir Hata Oluştu.", dismissButton: "Tamam")
+            AlertMessage(title: "Hata!", message: "Kullanıcı Adı veya Şifresi Hatalı.", dismissButton: "Tamam")
         }
     }
     
@@ -221,6 +221,7 @@ struct LoginVC: View {
             if error != nil {
                 signInError = true
             } else {
+                getUserData(email: email)
                 goFeedVC = true
             }
         }
@@ -234,6 +235,53 @@ struct LoginVC: View {
         )
         
     }
+    
+    private func getUserData(email: String) {
+        
+        let currentUser = Auth.auth().currentUser
+        let uid = currentUser!.uid
+        let database = Firestore.firestore()
+        let userRef = database.collection("users").document(uid)
+        
+        userRef.getDocument { document, error in
+            if let document = document, document.exists {
+                
+                if let data = document.data(),
+                   let username = data["username"] as? String,
+                   let name = data["name"] as? String,
+                   let surname = data["surname"] as? String,
+                   let imageURLString = data["profilePhoto"] as? String,
+                   let imageURL = URL(string: imageURLString),
+                   let gender = data["gender"] as? String {
+                    
+                    self.downloadDataFromURL(url: imageURL) { imageData in
+                        let user = User(username: username, firstName: name, lastName: surname, email: email, gender: gender, profileImageData: imageData, userUUID: UUID(uuidString: uid) ?? nil)
+                        
+                        UserManager.shared.saveUser(user)
+                    }
+                    
+                }
+            }
+        }
+        
+    }
+    
+    private func downloadDataFromURL(url: URL?, completion: @escaping (Data?) -> Void) {
+        guard let url = url else {
+            completion(nil)
+            return
+        }
+        
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            guard let data = data, error == nil else {
+                completion(nil)
+                return
+            }
+            
+            completion(data)
+        }.resume()
+    }
+
     
 }
 

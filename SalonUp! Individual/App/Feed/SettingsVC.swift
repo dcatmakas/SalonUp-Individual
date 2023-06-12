@@ -165,6 +165,9 @@ struct SettingsVC: View {
     private func SignOut() {
         do {
             try Auth.auth().signOut()
+            
+            UserManager.shared.deleteUser()
+            
             goLoginVC = true
             
         } catch _ as NSError {

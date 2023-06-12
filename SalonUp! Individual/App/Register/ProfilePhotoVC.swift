@@ -205,10 +205,18 @@ struct ProfilePhotoVC: View {
                                     } else {
                                         print("Upload Başarılı")
                                         
-                                        let currentUser = User(username: username, firstName: name.capitalized, lastName: surname.capitalized, email: email, profileImageData: imageData, userUUID: userUUID)
-                                        
-                                        UserManager.shared.saveUser(currentUser)
-                                        
+                                        if profilePhoto != nil {
+                                            let currentUser = User(username: username, firstName: name.capitalized, lastName: surname.capitalized, email: email, gender: gender, profileImageData: imageData, userUUID: userUUID)
+                                            
+                                            UserManager.shared.saveUser(currentUser)
+                                            
+                                        } else {
+                                         
+                                            let currentUser = User(username: username, firstName: name, lastName: surname, email: email, gender: gender, profileImageData: nil, userUUID: userUUID)
+                                            
+                                            UserManager.shared.saveUser(currentUser)
+                                        }
+                                            
                                         print("Data Kaydı Başarılı.")
                                         
                                         goFeedVC = true

@@ -15,14 +15,16 @@ struct User: Codable {
     var firstName: String
     var lastName: String
     var email: String
-    var profileImageData: Data
-    var userUUID: UUID
+    var gender: String
+    var profileImageData: Data?
+    var userUUID: UUID?
     
-    init(username: String, firstName: String, lastName: String, email: String, profileImageData: Data, userUUID: UUID) {
+    init(username: String, firstName: String, lastName: String, email: String, gender: String, profileImageData: Data?, userUUID: UUID?) {
         self.username = username
         self.firstName = firstName
         self.lastName = lastName
         self.email = email
+        self.gender = gender
         self.profileImageData = profileImageData
         self.userUUID = userUUID
     }
