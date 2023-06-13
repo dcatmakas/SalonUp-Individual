@@ -12,51 +12,39 @@ import FirebaseStorage
 
 
 struct ProfilePhotoVC: View {
-    
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.presentationMode) var presentationMode
     
-    // Segues
     @State private var goUserInformationsVC: Bool = false
     @State private var goFeedVC: Bool = false
     
-    // Image Picker
     @State private var showImagePicker: Bool = false
-    
-    // Profile Datas
     @State private var profilePhoto: UIImage?
     
-    // Datas From Previus VCs
     @Binding var username: String
     @Binding var email: String
     @Binding var name: String
-    @Binding var surname : String
+    @Binding var surname: String
     @Binding var gender: String
     @Binding var userUUID: UUID
     
-    // Defaults
     @State private var defaultName: String = "Name"
     
     var body: some View {
         VStack {
             HStack {
-                
                 Button {
-                    // Go Back
                     presentationMode.wrappedValue.dismiss()
                 } label: {
                     Image(systemName: "chevron.backward")
                         .foregroundColor(colorScheme == .dark ? .white : .black)
                         .font(.title3)
                 }
-
                 
                 Spacer()
                 
                 Button {
-                    // Go Next View.
                     goFeedVC = true
-                    
                 } label: {
                     Text("Şimdilik Atla")
                         .foregroundColor(colorScheme == .dark ? .white : .blue)
@@ -70,7 +58,6 @@ struct ProfilePhotoVC: View {
                     Text(name == defaultName ? "Selam Gizli Kişilik 👀" : "Memnun Oldum, \(name.capitalized) 🤩")
                         .font(.largeTitle)
                         .fontWeight(.heavy)
-//                        .foregroundColor(Color("MainColor"))
                         .padding(.top)
                         .padding(.bottom, 5)
                     
@@ -84,32 +71,19 @@ struct ProfilePhotoVC: View {
             }
             .padding(.horizontal)
             
-            
             VStack {
                 Text("👇")
                     .font(.largeTitle)
                 
                 ZStack {
-                    if profilePhoto != nil {
-                        if colorScheme == .light {
-                            Image(uiImage: profilePhoto!)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 220, height: 220)
-                                .foregroundColor(.gray)
-                                .background(Color.white)
-                                .clipShape(Circle())
-                            
-                        } else {
-                            Image(uiImage: profilePhoto!)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 220, height: 220)
-                                .foregroundColor(.gray)
-                                .background(Color.white)
-                                .clipShape(Circle())
-                        }
-                        
+                    if let profilePhoto = profilePhoto {
+                        Image(uiImage: profilePhoto)
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 220, height: 220)
+                            .foregroundColor(.gray)
+                            .background(Color.white)
+                            .clipShape(Circle())
                     } else {
                         if colorScheme == .light {
                             Image(systemName: "person.circle.fill")
@@ -124,7 +98,6 @@ struct ProfilePhotoVC: View {
                             Image(systemName: "photo.fill")
                                 .font(Font.system(size: 40))
                                 .foregroundColor(.white)
-                            
                         } else {
                             Image(systemName: "person.circle.fill")
                                 .resizable()
@@ -164,7 +137,6 @@ struct ProfilePhotoVC: View {
                         .background(Color("LoginButtonColor"))
                         .clipShape(Capsule())
                 }
-
             }
             
             Spacer()
@@ -175,23 +147,31 @@ struct ProfilePhotoVC: View {
         }
         
         .background(colorScheme == .dark ? Color("DarkModeColor") : .white)
+        .onAppear {
+            loadUserProfileData()
+        }
+    }
+    
+    private func loadUserProfileData() {
+        let currentUser = UserManager.shared.getUser()
+        profilePhoto = UIImage(data: currentUser?.profileImageData ?? Data())
+    }
+    
+    private func loadImage() {
+        guard profilePhoto != nil else { return }
     }
     
     private func finishSignUp() {
-        
-        // Database References
         let database = Firestore.firestore()
-        
-        // Storage Database Reference
         let storage = Storage.storage()
         let storageReference = storage.reference()
         let profilePhotosFolder = storageReference.child("userProfilePhotos")
-        let imageReference = profilePhotosFolder.child("\(username).\(userUUID).jpg")
+        let imageReference = profilePhotosFolder.child("\(username).jpg")
         
         if let imageData = profilePhoto?.jpegData(compressionQuality: 0.5) {
             imageReference.putData(imageData) { metadata, error in
                 if error != nil {
-                    // Make Error
+                    // Handle error
                 } else {
                     imageReference.downloadURL { url, error in
                         if let imageUrl = url?.absoluteString {
@@ -199,26 +179,24 @@ struct ProfilePhotoVC: View {
                             
                             if let user = user {
                                 let userRef = database.collection("users").document(user.uid)
-                                userRef.updateData(["profilePhoto" : imageUrl]) { error in
+                                userRef.updateData(["profilePhoto": imageUrl]) { error in
                                     if error != nil {
                                         print("Bir Hata Oluştu.")
                                     } else {
                                         print("Upload Başarılı")
                                         
                                         if profilePhoto != nil {
-                                            let currentUser = User(username: username, firstName: name.capitalized, lastName: surname.capitalized, email: email, gender: gender, profileImageData: imageData, userUUID: userUUID)
+                                            let user = User(username: username, firstName: name.capitalized, lastName: surname.capitalized, email: email, gender: gender, profileImageData: imageData, userUUID: userUUID)
                                             
-                                            UserManager.shared.saveUser(currentUser)
+                                            UserManager.shared.saveUser(user)
                                             
                                         } else {
-                                         
-                                            let currentUser = User(username: username, firstName: name, lastName: surname, email: email, gender: gender, profileImageData: nil, userUUID: userUUID)
+                                            let user = User(username: username, firstName: name, lastName: surname, email: email, gender: gender, profileImageData: nil, userUUID: userUUID)
                                             
-                                            UserManager.shared.saveUser(currentUser)
+                                            UserManager.shared.saveUser(user)
                                         }
-                                            
-                                        print("Data Kaydı Başarılı.")
                                         
+                                        print("Data Kaydı Başarılı.")
                                         goFeedVC = true
                                     }
                                 }
@@ -227,17 +205,14 @@ struct ProfilePhotoVC: View {
                     }
                 }
             }
+        } else {
+            let user = User(username: username, firstName: name, lastName: surname, email: email, gender: gender, profileImageData: nil, userUUID: userUUID)
+            UserManager.shared.saveUser(user)
+            goFeedVC = true
         }
-        
-        goFeedVC = true
     }
-    
-    private func loadImage() {
-        guard profilePhoto != nil else { return }
-    }
-
-    
 }
+
 
 struct ProfilePhotoVC_Previews: PreviewProvider {
     static var previews: some View {

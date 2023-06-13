@@ -237,7 +237,6 @@ struct LoginVC: View {
     }
     
     private func getUserData(email: String) {
-        
         let currentUser = Auth.auth().currentUser
         let uid = currentUser!.uid
         let database = Firestore.firestore()
@@ -245,26 +244,30 @@ struct LoginVC: View {
         
         userRef.getDocument { document, error in
             if let document = document, document.exists {
-                
                 if let data = document.data(),
                    let username = data["username"] as? String,
                    let name = data["name"] as? String,
                    let surname = data["surname"] as? String,
-                   let imageURLString = data["profilePhoto"] as? String,
-                   let imageURL = URL(string: imageURLString),
                    let gender = data["gender"] as? String {
                     
-                    self.downloadDataFromURL(url: imageURL) { imageData in
-                        let user = User(username: username, firstName: name, lastName: surname, email: email, gender: gender, profileImageData: imageData, userUUID: UUID(uuidString: uid) ?? nil)
+                    if let imageURLString = data["profilePhoto"] as? String {
+                        let imageURL = URL(string: imageURLString)
+
+                        self.downloadDataFromURL(url: imageURL) { imageData in
+                            let user = User(username: username, firstName: name, lastName: surname, email: email, gender: gender, profileImageData: imageData, userUUID: UUID(uuidString: uid) ?? nil)
+                            
+                            UserManager.shared.saveUser(user)
+                        }
+                    } else {
+                        let user = User(username: username, firstName: name, lastName: surname, email: email, gender: gender, profileImageData: nil, userUUID: UUID(uuidString: uid) ?? nil)
                         
                         UserManager.shared.saveUser(user)
                     }
-                    
                 }
             }
         }
-        
     }
+
     
     private func downloadDataFromURL(url: URL?, completion: @escaping (Data?) -> Void) {
         guard let url = url else {

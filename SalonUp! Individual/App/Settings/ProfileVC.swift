@@ -34,17 +34,16 @@ struct ProfileVC: View {
                 VStack {
                     VStack {
                         if let currentUser = UserManager.shared.getUser() {
-                            if let profileImage = UIImage(data: currentUser.profileImageData ?? Data()) {
+                            if let profileImage = currentUser.profileImageData, let image = UIImage(data: profileImage) {
                                 // If User Has A Profile Photo
                                 if selectedImage == nil {
-                                    Image(uiImage: profileImage)
+                                    Image(uiImage: image)
                                         .resizable()
                                         .scaledToFill()
                                         .frame(width: 160, height: 160)
                                         .clipShape(Circle())
                                         .padding(.bottom)
                                 } else {
-                                    // Eğer kullanıcı başka bir fotoğraf seçtiyse
                                     Image(uiImage: selectedImage!)
                                         .resizable()
                                         .scaledToFill()
@@ -56,34 +55,54 @@ struct ProfileVC: View {
                                 // If User Does Not Have A Profile Photo
                                 if colorScheme == .light {
                                     ZStack {
-                                        Image(systemName: "person.circle.fill")
-                                            .resizable()
-                                            .scaledToFill()
-                                            .frame(width: 160, height: 160)
-                                            .foregroundColor(.gray)
-                                            .background(Color.white)
-                                            .colorMultiply(.black.opacity(0.5))
-                                            .clipShape(Circle())
-                                        
-                                        Image(systemName: "photo.fill")
-                                            .font(Font.system(size: 35))
-                                            .foregroundColor(.white)
+                                        if selectedImage != nil {
+                                            Image(uiImage: selectedImage!)
+                                                .resizable()
+                                                .scaledToFill()
+                                                .frame(width: 160, height: 160)
+                                                .clipShape(Circle())
+                                            
+                                        } else {
+                                            Image(systemName: "person.circle.fill")
+                                                .resizable()
+                                                .scaledToFill()
+                                                .frame(width: 160, height: 160)
+                                                .foregroundColor(.gray)
+                                                .background(Color.white)
+                                                .colorMultiply(.black.opacity(0.5))
+                                                .clipShape(Circle())
+                                            
+                                            Image(systemName: "photo.fill")
+                                                .font(Font.system(size: 35))
+                                                .foregroundColor(.white)
+                                            
+                                        }
                                     }
                                     .padding(.bottom)
                                 } else {
                                     ZStack {
-                                        Image(systemName: "person.circle.fill")
-                                            .resizable()
-                                            .scaledToFill()
-                                            .frame(width: 160, height: 160)
-                                            .foregroundColor(Color.gray)
-                                            .background(Color.black)
-                                            .colorMultiply(.white.opacity(0.5))
-                                            .clipShape(Circle())
-                                        
-                                        Image(systemName: "photo.fill")
-                                            .font(Font.system(size: 35))
-                                            .foregroundColor(.white)
+                                        if selectedImage != nil {
+                                            Image(uiImage: selectedImage!)
+                                                .resizable()
+                                                .scaledToFill()
+                                                .frame(width: 160, height: 160)
+                                                .clipShape(Circle())
+                                            
+                                        } else {
+                                            Image(systemName: "person.circle.fill")
+                                                .resizable()
+                                                .scaledToFill()
+                                                .frame(width: 160, height: 160)
+                                                .foregroundColor(.gray)
+                                                .background(Color.white)
+                                                .colorMultiply(.black.opacity(0.5))
+                                                .clipShape(Circle())
+                                            
+                                            Image(systemName: "photo.fill")
+                                                .font(Font.system(size: 35))
+                                                .foregroundColor(.white)
+                                            
+                                        }
                                     }
                                     .padding(.bottom)
                                 }
@@ -93,10 +112,11 @@ struct ProfileVC: View {
                     .onTapGesture {
                         isShowingImagePicker = true
                     }
+                    .sheet(isPresented: $isShowingImagePicker) {
+                        ImagePickerModel(selectedImage: $selectedImage)
+                    }
                 }
-                .sheet(isPresented: $isShowingImagePicker) {
-                    ImagePickerModel(selectedImage: $selectedImage)
-                }
+                
 
 
                 
@@ -250,7 +270,7 @@ struct ProfileVC: View {
         let storageReference = storage.reference()
         let profilePhotosFolder = storageReference.child("userProfilePhotos")
         if let currentUser = UserManager.shared.getUser() {
-            let imageReference = profilePhotosFolder.child("\(currentUser.username).\(currentUser.userUUID).jpg")
+            let imageReference = profilePhotosFolder.child("\(currentUser.username).jpg")
             
             if let imageData = (selectedImage != nil ? selectedImage : UIImage(data: currentUser.profileImageData!))?.jpegData(compressionQuality: 0.5) {
                 imageReference.putData(imageData) { metadata, error in
