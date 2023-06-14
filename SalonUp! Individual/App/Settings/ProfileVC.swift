@@ -12,20 +12,39 @@ import FirebaseFirestore
 
 struct ProfileVC: View {
     
+    // Gender
+    enum Gender: String, CaseIterable {
+        case male = "Erkek"
+        case female = "Kadın"
+        case unspecified = "Belirtmek İstemiyorum"
+        case pleaseSelect = "Lütfen Seçiniz"
+    }
+    @State private var selectedGender: String = UserManager.shared.getUser()!.gender
+    
+    // Environments
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.presentationMode) var presentationMode
     
+    // User Infos
     @State var name: String = ""
     @State var surname: String = ""
     @State var email: String = ""
     
+    // User Infos From Other Screens
+    
+    // Image
     @State private var selectedImage: UIImage?
     @State private var isShowingImagePicker: Bool = false
     
+    // Alerts
     @State private var showUploadError: Bool = false
     @State private var alertTitle: String = ""
     @State private var alertMessage: String = ""
     @State private var alertDismissButton: String = ""
+    
+    // User
+    let currentUser = UserManager.shared.getUser()
+    
     
     var body: some View {
         
@@ -117,108 +136,89 @@ struct ProfileVC: View {
                     }
                 }
                 
-
-
-                
                 VStack {
-                    ZStack {
-                        Rectangle()
-                            .frame(width: .infinity, height: 50)
-                            .foregroundColor(colorScheme == .dark ? Color.black : Color.white)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 16)
-                                    .stroke(colorScheme == .dark ? Color.white : Color.black)
-                            )
-                            .cornerRadius(16)
-                        
-                        HStack {
-                            Image(systemName: "person.fill")
-                                .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
-                                .padding(.leading)
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text("Ad:")
+                                .bold()
+                                .foregroundColor(.gray)
                             
-                            if let currentUser = UserManager.shared.getUser() {
-                                TextField(currentUser.firstName, text: $name)
-                                    .textContentType(.name)
-                                    .padding(.trailing)
-                                    .foregroundColor(colorScheme == .dark ? .white : .black)
-                            } else {
-                                TextField("Adınız", text: $name)
-                                    .textContentType(.familyName)
-                                    .padding(.trailing)
-                                    .foregroundColor(colorScheme == .dark ? .white : .black)
-                            }
-                            
-                            Spacer()
+                            TextField(currentUser!.firstName == "" ? "Adınız" : currentUser!.firstName.capitalized, text: $name)
+                                .padding()
+                                .cornerRadius(16)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 16)
+                                        .stroke(colorScheme == .dark ? Color.white : Color.black, lineWidth: 1)
+                                )
                         }
-                        
+                        Spacer()
                     }
                     .padding()
                     
-                    ZStack {
-                        Rectangle()
-                            .frame(width: .infinity, height: 50)
-                            .foregroundColor(colorScheme == .dark ? Color.black : Color.white)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 16)
-                                    .stroke(colorScheme == .dark ? Color.white : Color.black)
-                            )
-                            .cornerRadius(16)
-                        
-                        HStack {
-                            Image(systemName: "person.fill")
-                                .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
-                                .padding(.leading)
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text("Soyad:")
+                                .bold()
+                                .foregroundColor(.gray)
                             
-                            if let currentUser = UserManager.shared.getUser() {
-                                TextField(currentUser.lastName, text: $surname)
-                                    .textContentType(.familyName)
-                                    .padding(.trailing)
-                                    .foregroundColor(colorScheme == .dark ? .white : .black)
-                            } else {
-                                TextField("Soyadınız", text: $surname)
-                                    .textContentType(.familyName)
-                                    .padding(.trailing)
-                                    .foregroundColor(colorScheme == .dark ? .white : .black)
-                            }
-                            
-                            Spacer()
+                            TextField(currentUser!.lastName == "" ? "Soyadınız" : currentUser!.lastName.capitalized, text: $surname)
+                                .padding()
+                                .cornerRadius(16)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 16)
+                                        .stroke(colorScheme == .dark ? Color.white : Color.black, lineWidth: 1)
+                                )
                         }
-                        
+                        Spacer()
                     }
                     .padding(.horizontal)
                     
-                    ZStack {
-                        Rectangle()
-                            .frame(width: .infinity, height: 50)
-                            .foregroundColor(colorScheme == .dark ? Color.black : Color.white)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 16)
-                                    .stroke(colorScheme == .dark ? Color.white : Color.black)
-                            )
-                            .cornerRadius(16)
-                        
-                        HStack {
-                            Image(systemName: "envelope.fill")
-                                .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
-                                .padding(.leading)
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text("Cinsiyet:")
+                                .bold()
+                                .foregroundColor(.gray)
                             
-                            if let currentUser = UserManager.shared.getUser() {
-                                TextField(currentUser.email, text: $email)
-                                    .textContentType(.emailAddress)
-                                    .padding(.trailing)
-                                    .foregroundColor(colorScheme == .dark ? .white : .black)
-                            } else {
-                                TextField("Mail Adresi", text: $email)
-                                    .textContentType(.familyName)
-                                    .padding(.trailing)
-                                    .foregroundColor(colorScheme == .dark ? .white : .black)
+                            Menu {
+                                Button(action: {
+                                    selectedGender = Gender.unspecified.rawValue
+                                }) {
+                                    Label(Gender.unspecified.rawValue, systemImage: selectedGender == Gender.unspecified.rawValue ? "checkmark" : "")
+                                }
+                                
+                                Button(action: {
+                                    selectedGender = Gender.female.rawValue
+                                }) {
+                                    Label(Gender.female.rawValue, systemImage: selectedGender == Gender.female.rawValue ? "checkmark" : "")
+                                }
+                                
+                                Button(action: {
+                                    selectedGender = Gender.male.rawValue
+                                }) {
+                                    Label(Gender.male.rawValue, systemImage: selectedGender == Gender.male.rawValue ? "checkmark" : "")
+                                }
+                            } label: {
+                                HStack {
+                                    Text(selectedGender)
+                                        .foregroundColor(selectedGender == Gender.pleaseSelect.rawValue ? .gray : colorScheme == .dark ? .white : .black)
+                                    
+                                    Spacer()
+                                    
+                                    Image(systemName: "chevron.down")
+                                        .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
+                                }
+                                .padding()
+                                .cornerRadius(16)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 16)
+                                        .stroke(colorScheme == .dark ? Color.white : Color.black, lineWidth: 1)
+                                )
                             }
-                            
-                            Spacer()
                         }
-                        
+                        Spacer()
                     }
                     .padding()
+                    
                 }
                 
                 Button(action: {
@@ -272,7 +272,7 @@ struct ProfileVC: View {
         if let currentUser = UserManager.shared.getUser() {
             let imageReference = profilePhotosFolder.child("\(currentUser.username).jpg")
             
-            if let imageData = (selectedImage != nil ? selectedImage : UIImage(data: currentUser.profileImageData!))?.jpegData(compressionQuality: 0.5) {
+            if let imageData = (selectedImage != nil ? selectedImage : UIImage(data: currentUser.profileImageData ?? Data()))?.jpegData(compressionQuality: 0.5) {
                 imageReference.putData(imageData) { metadata, error in
                     if error != nil {
                         showAlert(title: "Hata!", message: "Bilgilerin Kaydedilmesi Esnasında Hata Oluştu. Lütfen Tekrar Deneyiniz.")
@@ -284,22 +284,22 @@ struct ProfileVC: View {
                                 if let user = user {
                                     let userRef = database.collection("users").document(user.uid)
                                     userRef.updateData(["profilePhoto" : imageUrl,
-                                                        "name" : name != "" ? name : currentUser.firstName.capitalized,
-                                                        "surname" : surname != "" ? surname : currentUser.lastName.capitalized]) { error in
+                                                        "name" : name != "" ? name.capitalized : currentUser.firstName.capitalized,
+                                                        "surname" : surname != "" ? surname.capitalized : currentUser.lastName.capitalized,
+                                                        "gender" : selectedGender]) { error in
                                         
                                         if error != nil {
                                             print("Bir Hata Oluştu.")
                                         } else {
                                             print("Upload Başarılı")
-                                            
-                                            let currentUser = User(username: currentUser.username, firstName: name != "" ? name.capitalized : currentUser.firstName.capitalized, lastName: surname != "" ? surname.capitalized : currentUser.lastName.capitalized, email: currentUser.email, gender: currentUser.gender, profileImageData: imageData, userUUID: currentUser.userUUID)
-                                            
+                                                                                        
+                                            let currentUser = User(username: currentUser.username, firstName: name != "" ? name.capitalized : currentUser.firstName.capitalized, lastName: surname != "" ? surname.capitalized : currentUser.lastName.capitalized, email: currentUser.email, gender: selectedGender, profileImageData: imageData, userUUID: currentUser.userUUID ?? nil)
+                                                                                        
                                             UserManager.shared.saveUser(currentUser)
                                             
                                             print("Data Kaydı Başarılı.")
                                             
                                             presentationMode.wrappedValue.dismiss()
-                                            
                                         }
                                     }
                                 }
@@ -307,9 +307,35 @@ struct ProfileVC: View {
                         }
                     }
                 }
+            } else {
+                
+                let user = Auth.auth().currentUser
+                
+                if let user = user {
+                    let userRef = database.collection("users").document(user.uid)
+                    userRef.updateData(["name" : name != "" ? name.capitalized : currentUser.firstName.capitalized,
+                                        "surname" : surname != "" ? surname.capitalized : currentUser.lastName.capitalized,
+                                        "gender" : selectedGender]) { error in
+                        
+                        if error != nil {
+                            print("Bir Hata Oluştu.")
+                        } else {
+                            print("Upload Başarılı")
+                                                                                                    
+                            let currentUser = User(username: currentUser.username, firstName: name != "" ? name.capitalized : currentUser.firstName.capitalized != "" ? name.capitalized : currentUser.firstName.capitalized, lastName: surname != "" ? surname.capitalized : currentUser.lastName.capitalized, email: currentUser.email, gender: selectedGender, profileImageData: nil, userUUID: currentUser.userUUID ?? nil)
+                                                        
+                            UserManager.shared.saveUser(currentUser)
+                            
+                            print("Data Kaydı Başarılı.")
+                            
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                    }
+                }
             }
         }
     }
+
     
     private func showAlert(title: String, message: String) {
         alertTitle = title
