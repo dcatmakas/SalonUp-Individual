@@ -44,6 +44,7 @@ struct ProfilePhotoVC: View {
                 Spacer()
                 
                 Button {
+                    finishSignUp()
                     goFeedVC = true
                 } label: {
                     Text("Şimdilik Atla")

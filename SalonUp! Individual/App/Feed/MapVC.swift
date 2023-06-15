@@ -40,7 +40,7 @@ struct MapVC: View {
     var body: some View {
         
         VStack {
-            Map(coordinateRegion: $region, showsUserLocation: true, userTrackingMode: .constant(.follow))
+            Map(coordinateRegion: $region, showsUserLocation: true, userTrackingMode: .constant(.none))
                 .onAppear {
                     if let userLocation = locationManager.userLocation {
                         region = MKCoordinateRegion(center: userLocation.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005))

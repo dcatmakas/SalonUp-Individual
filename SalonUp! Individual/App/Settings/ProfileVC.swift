@@ -19,7 +19,7 @@ struct ProfileVC: View {
         case unspecified = "Belirtmek İstemiyorum"
         case pleaseSelect = "Lütfen Seçiniz"
     }
-    @State private var selectedGender: String = UserManager.shared.getUser()!.gender
+    @State private var selectedGender: String = UserManager.shared.getUser()?.gender ?? ""
     
     // Environments
     @Environment(\.colorScheme) var colorScheme
