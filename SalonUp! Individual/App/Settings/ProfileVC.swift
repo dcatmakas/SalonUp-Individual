@@ -30,8 +30,12 @@ struct ProfileVC: View {
     @State var surname: String = ""
     @State var email: String = ""
     
-    // User Infos From Other Screens
+    // Current User Infos
     
+    @State var currentUserName: String = ""
+    @State var currentUserSurname: String = ""
+    @State var currentUserGender: String = ""
+        
     // Image
     @State private var selectedImage: UIImage?
     @State private var isShowingImagePicker: Bool = false
@@ -44,6 +48,7 @@ struct ProfileVC: View {
     
     // User
     let currentUser = UserManager.shared.getUser()
+    @State private var editedUserGender: String = ""
     
     
     var body: some View {
@@ -98,6 +103,7 @@ struct ProfileVC: View {
                                         }
                                     }
                                     .padding(.bottom)
+                                    
                                 } else {
                                     ZStack {
                                         if selectedImage != nil {
@@ -143,7 +149,7 @@ struct ProfileVC: View {
                                 .bold()
                                 .foregroundColor(.gray)
                             
-                            TextField(currentUser!.firstName == "" ? "Adınız" : currentUser!.firstName.capitalized, text: $name)
+                            TextField(currentUserName == "" ? "Adınız" : currentUserName.capitalized, text: $name)
                                 .padding()
                                 .cornerRadius(16)
                                 .overlay(
@@ -161,7 +167,7 @@ struct ProfileVC: View {
                                 .bold()
                                 .foregroundColor(.gray)
                             
-                            TextField(currentUser!.lastName == "" ? "Soyadınız" : currentUser!.lastName.capitalized, text: $surname)
+                            TextField(currentUserSurname == "" ? "Soyadınız" : currentUserSurname.capitalized, text: $surname)
                                 .padding()
                                 .cornerRadius(16)
                                 .overlay(
@@ -182,24 +188,27 @@ struct ProfileVC: View {
                             Menu {
                                 Button(action: {
                                     selectedGender = Gender.unspecified.rawValue
+                                    editedUserGender = Gender.unspecified.rawValue
                                 }) {
-                                    Label(Gender.unspecified.rawValue, systemImage: selectedGender == Gender.unspecified.rawValue ? "checkmark" : "")
+                                    Label(Gender.unspecified.rawValue, systemImage: editedUserGender == "" && currentUserGender == Gender.unspecified.rawValue ? "checkmark" : (editedUserGender == Gender.unspecified.rawValue ? "checkmark" : ""))
                                 }
                                 
                                 Button(action: {
                                     selectedGender = Gender.female.rawValue
+                                    editedUserGender = Gender.female.rawValue
                                 }) {
-                                    Label(Gender.female.rawValue, systemImage: selectedGender == Gender.female.rawValue ? "checkmark" : "")
+                                    Label(Gender.female.rawValue, systemImage: editedUserGender == "" && currentUserGender == Gender.female.rawValue ? "checkmark" : (editedUserGender == Gender.female.rawValue ? "checkmark" : ""))
                                 }
                                 
                                 Button(action: {
                                     selectedGender = Gender.male.rawValue
+                                    editedUserGender = Gender.male.rawValue
                                 }) {
-                                    Label(Gender.male.rawValue, systemImage: selectedGender == Gender.male.rawValue ? "checkmark" : "")
+                                    Label(Gender.male.rawValue, systemImage: editedUserGender == "" && currentUserGender == Gender.male.rawValue ? "checkmark" : (editedUserGender == Gender.male.rawValue ? "checkmark" : ""))
                                 }
                             } label: {
                                 HStack {
-                                    Text(selectedGender)
+                                    Text(editedUserGender != "" ? selectedGender : currentUserGender)
                                         .foregroundColor(selectedGender == Gender.pleaseSelect.rawValue ? .gray : colorScheme == .dark ? .white : .black)
                                     
                                     Spacer()
@@ -249,6 +258,13 @@ struct ProfileVC: View {
                               message: Text(alertMessage),
                               dismissButton: .default(Text("Tamam"))
                         )
+                    }
+                
+                    .onAppear {
+                        let currentUser = UserManager.shared.getUser()
+                        currentUserName = currentUser?.firstName ?? ""
+                        currentUserSurname = currentUser?.lastName ?? ""
+                        currentUserGender = currentUser?.gender ?? Gender.pleaseSelect.rawValue
                     }
                                 
             }
