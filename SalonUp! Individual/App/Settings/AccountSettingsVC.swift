@@ -14,20 +14,26 @@ import FirebaseAuth
 struct AccountSettingsVC: View {
     
     @State private var goLoginVC: Bool = false
+    private var currentUser = UserManager.shared.getUser()
     
     var body: some View {
         Button {
-            deleteUserData()
-            deleteUsernameData()
-            deleteProfileImage()
-            deleteAccount()
-            UserManager.shared.deleteUser()
-            
-            goLoginVC = true
+            deleteAcoountAcception(title: "Uyarı!", message: "Hesabınızı kalıcı olarak silmek üzeresiniz. Eğer onaylıyorsanız kutucuğa delete/\(currentUser!.username) yazın.", hintText: "delete/\(currentUser!.username)", primaryTitle: "Onayla", secondaryTitle: "Vazgeç") { text in
+                if text == "delete/\(currentUser!.username)" {
+                    deleteUserData()
+                    deleteUsernameData()
+                    deleteProfileImage()
+                    deleteAccount()
+                    SignOut()
+                }
+                
+            } secondaryAction: {
+                print("Cancelled.")
+            }
             
         } label: {
             Text("Hesabımı Sil")
-                .font(.largeTitle)
+                .font(.title)
         }
         
         .fullScreenCover(isPresented: $goLoginVC) {
@@ -64,7 +70,6 @@ struct AccountSettingsVC: View {
     
     func deleteProfileImage() {
         guard let currentLocalUser = UserManager.shared.getUser() else { return }
-        guard let currentUser = Auth.auth().currentUser else { return }
         let storageRef = Storage.storage().reference().child("userProfilePhotos").child("\(currentLocalUser.username).jpg")
         
         // Kullanıcının profil resmini silme
@@ -90,10 +95,61 @@ struct AccountSettingsVC: View {
         }
     }
     
+    private func SignOut() {
+        do {
+            try Auth.auth().signOut()
+            
+            UserManager.shared.deleteUser()
+            
+            goLoginVC = true
+            
+        } catch _ as NSError {
+            print("Çıkış yaparken bir hata oluştu.")
+        }
+    }
+    
 }
 
 struct AccountSettingsVC_Previews: PreviewProvider {
     static var previews: some View {
         AccountSettingsVC()
+    }
+}
+
+extension View {
+    
+    func deleteAcoountAcception(title: String, message: String, hintText: String, primaryTitle: String, secondaryTitle: String, primaryAction: @escaping (String) -> (), secondaryAction: @escaping () -> ()) {
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addTextField { field in
+            field.placeholder = hintText
+        }
+        
+        alert.addAction(.init(title: secondaryTitle, style: .cancel, handler: { _ in
+            secondaryAction()
+        }))
+        
+        alert.addAction(.init(title: primaryTitle, style: .default, handler: { _ in
+            if let text = alert.textFields?[0].text {
+                primaryAction(text)
+                
+            } else {
+                primaryAction("")
+            }
+        }))
+        
+        rootController().present(alert, animated: true)
+    }
+    
+    func rootController() -> UIViewController {
+        guard let screen = UIApplication.shared.connectedScenes.first as? UIWindowScene else {
+            return .init()
+        }
+        
+        guard let root = screen.windows.first?.rootViewController else {
+            return .init()
+        }
+        
+        return root
     }
 }

@@ -15,6 +15,14 @@ struct SalonDetailsVC: View {
     @State var tabBarOffset: CGFloat = 0
     @State var titleOffset: CGFloat = 0
     
+    // Post Details
+    @State var currentPostImage: UIImage = UIImage(named: "catmakas")!
+    @State var currentPostLikes: Int = 34
+    
+    // Details From User
+    @State private var isLiked: Bool = false
+    @State var isFollowing: Bool = false
+    
     @Environment(\.presentationMode) var presentationMode
         
     // Dark Mode
@@ -216,11 +224,17 @@ struct SalonDetailsVC: View {
                             
                             // Posts
                             
-                            ForEach(0..<10) { _ in
-                                MessagesVC()
+                            if currentTab == "Ana Sayfa" {
+                                ForEach(0..<10) { _ in
+                                    SalonPostModel(currentPostImage: currentPostImage, currentPostLikes: currentPostLikes)
+                                    
+                                    Divider()
+                                }
                                 
-                                Divider()
+                            } else {
+                                MessagesVC()
                             }
+                            
                         }
                         .padding(.top)
                         .zIndex(0)
@@ -305,7 +319,7 @@ struct SalonDetailsVC: View {
 
 struct SalonDetailsVC_Previews: PreviewProvider {
     static var previews: some View {
-        SalonDetailsVC()
+        SalonDetailsVC(currentPostImage: UIImage(named: "catmakas")!, currentPostLikes: 34)
     }
 }
 
