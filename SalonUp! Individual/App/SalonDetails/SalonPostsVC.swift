@@ -37,7 +37,11 @@ struct SalonPostModel: View {
     var body: some View {
         VStack {
             HStack {
-                Text("Çatmakas Salon")
+                
+                Image(systemName: "scissors.circle.fill")
+                    .foregroundColor(Color("MainColor"))
+                
+                Text("Saç Kesimi")
                     .fontWeight(.bold)
                     .font(Font.system(size: 21))
                 
@@ -59,7 +63,7 @@ struct SalonPostModel: View {
                     .scaledToFit()
                     .cornerRadius(5)
                     .frame(maxWidth: .infinity)
-                    .padding(.vertical, 10)
+                    .padding(.bottom, 10)
                     .padding(.horizontal, 10)
             }
             
@@ -83,8 +87,14 @@ struct SalonPostModel: View {
                 Text("\(isLiked == true ? currentPostLikes + 1 : currentPostLikes)")
                     .foregroundColor(.gray)
                     .fontWeight(.semibold)
+                    .animation(.default)
                 
                 Spacer()
+                
+                Text("29 Dakika Önce")
+                    .font(Font.system(size: 15))
+                    .foregroundColor(.gray)
+                    .fontWeight(.light)
                 
             }
             .padding(.horizontal)

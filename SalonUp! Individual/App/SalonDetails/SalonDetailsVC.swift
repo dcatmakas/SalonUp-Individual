@@ -17,6 +17,7 @@ struct SalonDetailsVC: View {
     
     // Post Details
     @State var currentPostImage: UIImage = UIImage(named: "catmakas")!
+    @State var currentPostImage2: UIImage = UIImage(named: "dogukan")!
     @State var currentPostLikes: Int = 34
     
     // Details From User
@@ -185,13 +186,13 @@ struct SalonDetailsVC: View {
                                     
                                     TabButton(title: "Ana Sayfa", currentTab: $currentTab, animation: animation)
                                     
-                                    TabButton(title: "Personel", currentTab: $currentTab, animation: animation)
-                                    
-                                    TabButton(title: "Hizmetler", currentTab: $currentTab, animation: animation)
-                                    
                                     TabButton(title: "Yorumlar", currentTab: $currentTab, animation: animation)
                                     
                                     TabButton(title: "Fotoğraflar", currentTab: $currentTab, animation: animation)
+                                    
+                                    TabButton(title: "Hizmetler", currentTab: $currentTab, animation: animation)
+                                    
+                                    TabButton(title: "Personel", currentTab: $currentTab, animation: animation)
                                 }
                             }
                             
@@ -225,11 +226,18 @@ struct SalonDetailsVC: View {
                             // Posts
                             
                             if currentTab == "Ana Sayfa" {
-                                ForEach(0..<10) { _ in
-                                    SalonPostModel(currentPostImage: currentPostImage, currentPostLikes: currentPostLikes)
+                                ForEach(0..<10) { i in
+                                    if i % 2 == 0 {
+                                        SalonPostModel(currentPostImage: currentPostImage, currentPostLikes: currentPostLikes)
+                                    } else {
+                                        SalonPostModel(currentPostImage: currentPostImage2, currentPostLikes: currentPostLikes)
+                                    }
                                     
                                     Divider()
                                 }
+                                
+                            } else if currentTab == "Yorumlar" {
+                                SalonCommentsVC(currentUserUsername: "dogukan")
                                 
                             } else {
                                 MessagesVC()

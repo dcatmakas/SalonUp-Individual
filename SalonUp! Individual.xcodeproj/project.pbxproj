@@ -36,6 +36,9 @@
 		43C23F0D2A33D4AF005941EB /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 43C23F0C2A33D4AF005941EB /* SDWebImage */; };
 		43C23F0F2A33D4AF005941EB /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 43C23F0E2A33D4AF005941EB /* SDWebImageMapKit */; };
 		43D08FF12A2D16130052C259 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D08FF02A2D16130052C259 /* User.swift */; };
+		43E683E62A4311B000C08836 /* SalonCommentsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E683E52A4311B000C08836 /* SalonCommentsVC.swift */; };
+		43E683E92A43127A00C08836 /* SendRatingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E683E82A43127A00C08836 /* SendRatingVC.swift */; };
+		43E683EB2A445CAC00C08836 /* SendCommentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E683EA2A445CAC00C08836 /* SendCommentVC.swift */; };
 		43F1A3882A2F952900D2F618 /* ProfilePhotoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F1A3872A2F952900D2F618 /* ProfilePhotoVC.swift */; };
 		43F1A38A2A2FAE6400D2F618 /* UserInformationsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F1A3892A2FAE6400D2F618 /* UserInformationsVC.swift */; };
 		43F645032A20C5E2007D2450 /* BlurViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F645022A20C5E2007D2450 /* BlurViewModel.swift */; };
@@ -68,6 +71,9 @@
 		43BBB7242A1E3912008FA1C6 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		43BF065D2A1F58B500C57C92 /* SalonDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalonDetailsVC.swift; sourceTree = "<group>"; };
 		43D08FF02A2D16130052C259 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		43E683E52A4311B000C08836 /* SalonCommentsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalonCommentsVC.swift; sourceTree = "<group>"; };
+		43E683E82A43127A00C08836 /* SendRatingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendRatingVC.swift; sourceTree = "<group>"; };
+		43E683EA2A445CAC00C08836 /* SendCommentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendCommentVC.swift; sourceTree = "<group>"; };
 		43F1A3872A2F952900D2F618 /* ProfilePhotoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePhotoVC.swift; sourceTree = "<group>"; };
 		43F1A3892A2FAE6400D2F618 /* UserInformationsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInformationsVC.swift; sourceTree = "<group>"; };
 		43F645022A20C5E2007D2450 /* BlurViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurViewModel.swift; sourceTree = "<group>"; };
@@ -213,6 +219,7 @@
 			children = (
 				43BF065D2A1F58B500C57C92 /* SalonDetailsVC.swift */,
 				437AF0EC2A4082EE0077CF57 /* SalonPostsVC.swift */,
+				43E683E72A43126000C08836 /* Comments */,
 			);
 			path = SalonDetails;
 			sourceTree = "<group>";
@@ -224,6 +231,16 @@
 				43A7BCA52A2FB87A0067A254 /* ImagePickerModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		43E683E72A43126000C08836 /* Comments */ = {
+			isa = PBXGroup;
+			children = (
+				43E683E52A4311B000C08836 /* SalonCommentsVC.swift */,
+				43E683E82A43127A00C08836 /* SendRatingVC.swift */,
+				43E683EA2A445CAC00C08836 /* SendCommentVC.swift */,
+			);
+			path = Comments;
 			sourceTree = "<group>";
 		};
 		43EF44802A2F2F50009104C5 /* UserData */ = {
@@ -327,8 +344,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				43700ABC2A1E2A4F005CA31E /* MessagesVC.swift in Sources */,
+				43E683E62A4311B000C08836 /* SalonCommentsVC.swift in Sources */,
+				43E683E92A43127A00C08836 /* SendRatingVC.swift in Sources */,
 				43700AB72A1E0832005CA31E /* LaunchScreen.swift in Sources */,
 				4391DE1D2A25F464000DF9B3 /* SSS-VC.swift in Sources */,
+				43E683EB2A445CAC00C08836 /* SendCommentVC.swift in Sources */,
 				43F1A3882A2F952900D2F618 /* ProfilePhotoVC.swift in Sources */,
 				43838C472A198E6100CB6524 /* FeedVC.swift in Sources */,
 				43F645032A20C5E2007D2450 /* BlurViewModel.swift in Sources */,

@@ -156,7 +156,7 @@ struct SalonModel: View {
                     .padding(.bottom, 1)
                 }
                 
-                HStack {
+                HStack(alignment: .top) {
                     Image(systemName: "arrow.forward.square.fill")
                         .foregroundColor(colorScheme == .dark ? .white : .black)
                     
@@ -164,11 +164,12 @@ struct SalonModel: View {
                         .font(Font.system(size: 15))
                         .foregroundColor(colorScheme == .dark ? .white : .black)
                         .fontWeight(.light)
+                        .multilineTextAlignment(.leading)
                     
                     Spacer()
                 }
                 
-                HStack {
+                HStack(alignment: .top) {
                     Image(systemName: "scissors.circle.fill")
                         .foregroundColor(colorScheme == .dark ? .white : .black)
                     
@@ -176,6 +177,7 @@ struct SalonModel: View {
                         .font(Font.system(size: 15))
                         .foregroundColor(colorScheme == .dark ? .white : .black)
                         .fontWeight(.light)
+                        .multilineTextAlignment(.leading)
                     
                     Spacer()
                 }
