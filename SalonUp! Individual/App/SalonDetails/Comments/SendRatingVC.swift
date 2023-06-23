@@ -12,6 +12,9 @@ struct SendRatingVC: View {
     // Dark Mode
     @Environment(\.colorScheme) var colorScheme
     
+    // Dismiss
+    @Environment(\.presentationMode) var presentationMode
+    
     // Comment
     @State var comment: String = ""
     
@@ -22,7 +25,7 @@ struct SendRatingVC: View {
     
     
     var body: some View {
-        ScrollView {
+        ScrollView(.vertical, showsIndicators: false) {
             VStack {
                 VStack(alignment: .center) {
                     Text("Deneyimini Değerlendir,")
@@ -40,7 +43,7 @@ struct SendRatingVC: View {
                         .foregroundColor(.gray)
                     
                 }
-                .padding(.vertical, 10)
+                .padding(.bottom, 10)
                 
                 Rectangle()
                     .frame(width: .infinity, height: 0.5)

@@ -137,13 +137,26 @@ struct SalonDetailsVC: View {
                                 
                                 Spacer()
                                 
+                                HStack {
+                                    Image(systemName: "star.fill")
+                                        .font(.title2)
+                                        .foregroundColor(.yellow)
+                                    
+                                    Text("4.8/5")
+                                        .fontWeight(.semibold)
+                                        .font(.title2)
+                                        .foregroundColor(colorScheme == .dark ? .white : .black)
+                                }
+                            }
+                            .padding(.bottom)
+                            
+                            HStack(alignment: .top) {
                                 Image(systemName: "mappin.circle.fill")
                                     .foregroundColor(.gray)
                                 
                                 Text("Özlüce")
                                     .foregroundColor(.gray)
                             }
-                            .padding(.bottom)
                             
                             HStack(alignment: .top) {
                                 Image(systemName: "scissors.circle.fill")
@@ -182,7 +195,7 @@ struct SalonDetailsVC: View {
                         // Custom Segmented Menu
                         VStack(spacing: 0) {
                             ScrollView(.horizontal, showsIndicators: false) {
-                                HStack(spacing: 0) {
+                                HStack(spacing: 10) {
                                     
                                     TabButton(title: "Ana Sayfa", currentTab: $currentTab, animation: animation)
                                     
@@ -238,6 +251,13 @@ struct SalonDetailsVC: View {
                                 
                             } else if currentTab == "Yorumlar" {
                                 SalonCommentsVC(currentUserUsername: "dogukan")
+                                
+                            } else if currentTab == "Personel" {
+                                ForEach(0..<10) { _ in
+                                    StaffModel()
+                                    
+                                    Divider()
+                                }
                                 
                             } else {
                                 MessagesVC()

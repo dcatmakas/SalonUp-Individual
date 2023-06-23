@@ -17,9 +17,25 @@ struct SalonCommentsVC: View {
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
-        ScrollView {
+        ScrollView(.vertical, showsIndicators: false) {
             VStack {
+                
                 SalonAverageModel()
+                
+                Divider()
+                
+                NavigationLink {
+                    SendRatingVC()
+                } label: {
+                    Text("Deneyimini Değerlendir")
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color("LoginButtonColor"))
+                        .foregroundColor(.white)
+                        .cornerRadius(16)
+                        .padding()
+                }
+
                 
                 Divider()
                 
@@ -50,7 +66,17 @@ struct SalonCommentsVC: View {
             }
         }
         .background(colorScheme == .dark ? Color("DarkModeColor") : .white)
+        
+        .onTapGesture {
+            hideKeyboard()
+        }
+        
     }
+    
+    private func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+    
 }
 
 struct SalonCommentsVC_Previews: PreviewProvider {
@@ -67,6 +93,10 @@ struct CommentModel: View {
     
     // Dark / Light Mode
     @Environment(\.colorScheme) var colorScheme
+    
+    // Comment
+    @State var isCommentLiked: Bool = false
+    @State var isCommentDisliked: Bool = false
     
     var body: some View {
         VStack {
@@ -105,42 +135,51 @@ struct CommentModel: View {
             HStack(alignment: .top) {
                 VStack {
                     Image(systemName: "star.fill")
-                        .font(.largeTitle)
+                        .font(.title)
                         .foregroundColor(.yellow)
                     
                     Text("4/5")
-                        .font(.title)
+                        .font(.title2)
                         .bold()
                         .padding(.vertical, 10)
                         .padding(.horizontal)
+                    
+                    Text("Profesyonellik")
+                        .font(Font.system(size: 14))
                     
                 }
                 .padding()
                 
                 VStack(alignment: .center) {
                     Image(systemName: "star.fill")
-                        .font(.largeTitle)
+                        .font(.title)
                         .foregroundColor(.yellow)
                     
                     Text("5/5")
-                        .font(.title)
+                        .font(.title2)
                         .bold()
                         .padding(.vertical, 10)
                         .padding(.horizontal)
+                    
+                    Text("Hijyen")
+                        .font(Font.system(size: 14))
                     
                 }
                 .padding()
                 
                 VStack {
                     Image(systemName: "star.fill")
-                        .font(.largeTitle)
+                        .font(.title)
                         .foregroundColor(.yellow)
                     
                     Text("4/5")
-                        .font(.title)
+                        .font(.title2)
                         .bold()
                         .padding(.vertical, 10)
                         .padding(.horizontal)
+                    
+                    Text("Personel")
+                        .font(Font.system(size: 14))
                     
                 }
                 .padding()
@@ -162,6 +201,60 @@ struct CommentModel: View {
                     .padding([.horizontal, .bottom])
                 
                 HStack {
+                    Button {
+                        if isCommentLiked == false && isCommentDisliked == false {
+                            isCommentLiked = true
+                        } else if isCommentLiked == false && isCommentDisliked == true {
+                            isCommentLiked = true
+                            isCommentDisliked = false
+                        } else if isCommentLiked == true && isCommentDisliked == false {
+                            isCommentLiked = false
+                        } else {
+                            isCommentLiked = false
+                            isCommentDisliked = false
+                        }
+                    } label: {
+                        if isCommentLiked == true {
+                            Image(systemName: "hand.thumbsup.fill")
+                                .foregroundColor(colorScheme == .dark ? .white : .black)
+                                .font(.title2)
+                            
+                        } else {
+                            Image(systemName: "hand.thumbsup")
+                                .foregroundColor(colorScheme == .dark ? .white : .black)
+                                .font(.title2)
+                        }
+                    }
+                    .padding(.leading)
+                    
+                    Button {
+                        if isCommentLiked == false && isCommentDisliked == false {
+                            isCommentDisliked = true
+                        } else if isCommentLiked == false && isCommentDisliked == true {
+                            isCommentDisliked = false
+                        } else if isCommentLiked == true && isCommentDisliked == false {
+                            isCommentLiked = false
+                            isCommentDisliked = true
+                        } else {
+                            isCommentLiked = false
+                            isCommentDisliked = false
+                        }
+                    } label: {
+                        if isCommentDisliked == true {
+                            Image(systemName: "hand.thumbsdown.fill")
+                                .foregroundColor(colorScheme == .dark ? .white : .black)
+                                .font(.title2)
+                            
+                        } else {
+                            Image(systemName: "hand.thumbsdown")
+                                .foregroundColor(colorScheme == .dark ? .white : .black)
+                                .font(.title2)
+                        }
+                    }
+                    .padding(.horizontal)
+
+
+                    
                     Spacer()
                     
                     Text("14 dakika önce")
@@ -194,54 +287,54 @@ struct SalonAverageModel: View {
             HStack(alignment: .top) {
                 VStack {
                     Image(systemName: "star.fill")
-                        .font(.largeTitle)
+                        .font(.title)
                         .foregroundColor(.yellow)
                     
                     Text("4.2/5")
-                        .font(.title)
+                        .font(.title2)
                         .bold()
                         .padding(.vertical, 10)
                         .padding(.horizontal)
                     
                     Text("Profesyonellik")
-                        .font(.callout)
+                        .font(Font.system(size: 14))
                     
                 }
-                .padding(.vertical)
+                .padding()
                 
                 VStack(alignment: .center) {
                     Image(systemName: "star.fill")
-                        .font(.largeTitle)
+                        .font(.title)
                         .foregroundColor(.yellow)
                     
                     Text("3.9/5")
-                        .font(.title)
+                        .font(.title2)
                         .bold()
                         .padding(.vertical, 10)
                         .padding(.horizontal)
                     
                     Text("Hijyen")
-                        .font(.callout)
+                        .font(Font.system(size: 14))
                     
                 }
                 .padding(.vertical)
                 
                 VStack {
                     Image(systemName: "star.fill")
-                        .font(.largeTitle)
+                        .font(.title)
                         .foregroundColor(.yellow)
                     
                     Text("4.7/5")
-                        .font(.title)
+                        .font(.title2)
                         .bold()
                         .padding(.vertical, 10)
                         .padding(.horizontal)
                     
                     Text("Personel")
-                        .font(.callout)
+                        .font(Font.system(size: 14))
                     
                 }
-                .padding(.vertical)
+                .padding()
                 
             }
         }
