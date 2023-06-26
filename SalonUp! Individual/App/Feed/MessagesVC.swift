@@ -29,7 +29,7 @@ struct MessageModel: View {
 //            Rectangle()
 //                .frame(width: .infinity, height: 90)
 //                .foregroundColor(Color("CellColor"))
-            Color(colorScheme == .dark ? UIColor(Color("DarkModeColor")) : UIColor(Color("CellColor")))
+            Color(colorScheme == .dark ? UIColor(Color("DarkModeColor")) : UIColor(Color("CellColor"))).ignoresSafeArea()
 
             
             HStack {

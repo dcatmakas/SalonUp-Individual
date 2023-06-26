@@ -292,7 +292,7 @@ struct SalonDetailsVC: View {
                 }
                 Spacer()
             }
-            .padding(.horizontal, 15)
+            .padding(.horizontal, 5)
             .padding(.vertical, 40)
         }
         .ignoresSafeArea(.all, edges: .top)

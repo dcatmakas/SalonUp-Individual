@@ -33,7 +33,6 @@ struct SendCommentVC: View {
             }
             .padding(.horizontal)
             .padding(.top, 1)
-            .padding(.bottom, 70)
             
             TextEditor(text: $comment)
                 .frame(width: .infinity, height: 200)

@@ -154,6 +154,9 @@ struct SettingsVC: View {
                     }
                 }
             }
+            .background(colorScheme == .dark ? Color("DarkModeColor") : Color("CellColor"))
+            .scrollContentBackground(.hidden)
+            
             .fullScreenCover(isPresented: $goLoginVC) {
                 LoginVC()
             }

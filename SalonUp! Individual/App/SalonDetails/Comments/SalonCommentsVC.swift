@@ -26,6 +26,7 @@ struct SalonCommentsVC: View {
                 
                 NavigationLink {
                     SendRatingVC()
+                        .navigationTitle("")
                 } label: {
                     Text("Deneyimini Değerlendir")
                         .frame(maxWidth: .infinity)
@@ -70,6 +71,8 @@ struct SalonCommentsVC: View {
         .onTapGesture {
             hideKeyboard()
         }
+        
+        .navigationTitle("")
         
     }
     

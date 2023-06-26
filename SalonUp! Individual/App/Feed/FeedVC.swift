@@ -26,6 +26,7 @@ struct FeedVC: View {
                     }
                 }
                 .navigationTitle("Salonlar")
+                .background(colorScheme == .dark ? Color("DarkModeColor") : .white)
                 .navigationBarItems(trailing: HStack {
                     Button {
                         // Salon Filters
@@ -60,11 +61,13 @@ struct FeedVC: View {
                         
                         Divider()
                             .navigationTitle("Mesajlar")
+                            .background(colorScheme == .dark ? Color("DarkModeColor") : .white)
                     }
                     .background(colorScheme == .dark ? Color("DarkModeColor") : Color("CellColor"))
                 }
                 .navigationViewStyle(StackNavigationViewStyle())
-                .toolbarBackground(colorScheme == .dark ? Color("DarkModeColor") : .clear, for: .navigationBar)
+                .background(colorScheme == .dark ? Color("DarkModeColor") : Color("CellColor"))
+                
             }
             .tabItem {
                 Image(systemName: "message.fill")
@@ -73,6 +76,7 @@ struct FeedVC: View {
             
             SettingsVC()
                 .navigationTitle("Ayarlar")
+                .background(colorScheme == .dark ? Color("DarkModeColor") : .white)
             
             .navigationViewStyle(StackNavigationViewStyle())
             .toolbarBackground(colorScheme == .dark ? Color("DarkModeColor") : .clear, for: .navigationBar)
@@ -83,6 +87,7 @@ struct FeedVC: View {
         }
         .background(Color("DarkModeColor"))
         .accentColor(colorScheme == .dark ? .white : .black)
+        
     }
 }
 
@@ -187,6 +192,6 @@ struct SalonModel: View {
             
         }
         .background(colorScheme == .dark ? Color("DarkModeColor") : .white)
-        .toolbarBackground(colorScheme == .dark ? Color("DarkModeColor") : .clear, for: .navigationBar)
+        
     }
 }
